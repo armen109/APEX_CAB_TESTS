@@ -1,0 +1,15 @@
+output.registerSelectors={
+    sign_up_button: "Գրանցվել",
+    phone_number_field: "Հեռախոսահամար",
+    email_field: "Էլ. փոստ",
+    login_confirm_button: "Մուտք գործել հեռախոսահամարով",
+    login_confirm_button_email: "Մուտք գործել էլ. փոստով",
+    otp_field: "34%,31%",
+    otp_confirm_button: "Հաստատել",
+    phone_error: "Անվավեր հեռախոսահամար",
+    email_error: "Անվավեր էլ. փոստ",
+    not_registered_phone_error: "Հեռախոսահամարը գրանցված չէ",
+    not_registered_email_error: "Էլ. հասցեն գրանցված չէ",
+    otp_page_title: "Հաստատման կոդ",
+    continue_email_button: "Շարունակել էլ․ փոստով",
+}

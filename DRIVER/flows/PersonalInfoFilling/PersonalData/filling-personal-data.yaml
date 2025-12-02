@@ -1,0 +1,36 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/log-out-selectors.js
+- runScript: ../../../selectors/personal-info-selector.js
+- runScript: ../../../creds/personal-info-creds.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Registration/registration-with-valid-phone.yaml"
+
+- waitForAnimationToEnd:
+    timeout: 20000
+- runFlow:
+    when:
+      visible: ${output.personalInfoSelectors.welcome_personal_data}
+    commands:
+      - tapOn: ${output.personalInfoSelectors.name_field}
+      - inputText: ${output.personalInfoCreds.valid_name}
+      - tapOn: ${output.personalInfoSelectors.last_name_field}
+      - inputText: ${output.personalInfoCreds.valid_last_name}
+      - tapOn: ${output.personalInfoSelectors.passport_id_field}
+      - inputText: ${output.personalInfoCreds.valid_passport_id_number}
+      - tapOn: ${output.personalInfoSelectors.ssn_field}
+      - inputText: ${output.personalInfoCreds.valid_ssn}
+      - tapOn: ${output.personalInfoSelectors.driver_license_field}
+      - inputText: ${output.personalInfoCreds.valid_driver_license}
+      - tapOn: ${output.personalInfoSelectors.refferal_code_field}
+      - tapOn: ${output.personalInfoSelectors.next_button}
+      - assertVisible: ${output.personalInfoSelectors.service_details_title}
+
+

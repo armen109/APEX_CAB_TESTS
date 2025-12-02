@@ -1,0 +1,41 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/log-out-selectors.js
+- runScript: ../../../selectors/personal-info-selector.js
+- runScript: ../../../creds/personal-info-creds.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Registration/registration-with-valid-phone.yaml"
+
+- waitForAnimationToEnd:
+    timeout: 20000
+- runFlow:
+    when:
+      visible: ${output.personalInfoSelectors.welcome_personal_data}
+    commands:
+      - tapOn: ${output.personalInfoSelectors.name_field}
+      - inputText: ${output.personalInfoCreds.invalid_name}
+      - tapOn: ${output.personalInfoSelectors.last_name_field}
+      - assertVisible: ${output.personalInfoSelectors.invalid_name_error}
+      - inputText: ${output.personalInfoCreds.invalid_last_name}
+      - tapOn: ${output.personalInfoSelectors.passport_id_field}
+      - assertVisible: ${output.personalInfoSelectors.invalid_last_name_error}
+      - inputText: ${output.personalInfoCreds.invalid_passport_id_number}
+      - tapOn: ${output.personalInfoSelectors.ssn_field}
+      - assertVisible: ${output.personalInfoSelectors.passport_id_error}
+      - inputText: ${output.personalInfoCreds.invalid_ssn}
+      - tapOn: ${output.personalInfoSelectors.driver_license_field}
+      - assertVisible: ${output.personalInfoSelectors.ssn_error}
+      - inputText: ${output.personalInfoCreds.invalid_driver_license}
+      - tapOn: ${output.personalInfoSelectors.refferal_code_field}
+      - assertVisible: ${output.personalInfoSelectors.driver_license_error}
+      - tapOn: ${output.personalInfoSelectors.next_button}
+      - assertVisible: ${output.personalInfoSelectors.welcome_personal_data}
+
+

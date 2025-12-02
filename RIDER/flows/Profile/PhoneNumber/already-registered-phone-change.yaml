@@ -1,0 +1,30 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../creds/registration-creds.js
+
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- tapOn:
+    point: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.profile_page}
+- tapOn:
+    point: ${output.profileSelectors.phone_number_edit}
+- tapOn:
+    point: ${output.profileSelectors.phone_number_field}
+- eraseText
+- inputText: ${output.registrationCreds.already_registered_phone}
+- tapOn: ${output.profileSelectors.update_button}
+- assertVisible: ${output.profileSelectors.already_used_phone_error}
+- tapOn:
+    point: ${output.profileSelectors.phone_back}
+- tapOn:
+    point: ${output.profileSelectors.phone_back}

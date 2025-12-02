@@ -1,0 +1,12 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../selectors/login-selectors.js
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../creds/login-creds.js
+
+- clearState: drift.armenia.driver
+- launchApp
+
+- waitForAnimationToEnd:
+    timeout: 20000

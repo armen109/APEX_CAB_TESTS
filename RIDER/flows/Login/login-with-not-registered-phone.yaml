@@ -1,0 +1,14 @@
+appId: drift.armenia
+---
+- runScript: ../../selectors/login-selectors.js
+- runScript: ../../creds/login-creds.js
+
+- clearState: drift.armenia  
+
+- launchApp
+- tapOn: ${output.loginSelectors.login_button}
+- tapOn:
+    point: ${output.loginSelectors.phone_number_field}
+- inputText: ${output.loginCreds.not_registered_phone}
+- tapOn: ${output.loginSelectors.login_confirm_button}
+- assertVisible: ${output.loginSelectors.not_registered_phone_error}

@@ -1,0 +1,25 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../selectors/login-selectors.js
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../creds/login-creds.js
+
+- clearState: drift.armenia.driver
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    commands:  
+        - tapOn: ${output.loginSelectors.login_button}
+        - tapOn: ${output.loginSelectors.phone_number_field}
+        - inputText: ${output.loginCreds.valid_phone_number}
+        - tapOn: ${output.loginSelectors.login_confirm_button}
+        - tapOn:
+            point: ${output.loginSelectors.otp_field}
+        - inputText: ${output.loginCreds.valid_otp}
+        - tapOn: ${output.loginSelectors.otp_confirm_button}
+        - tapOn: ${output.homeSelectors.ok_button}
+        - assertVisible: ${output.homeSelectors.assertion_logged_in}

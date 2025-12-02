@@ -1,0 +1,42 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/activity-selectors.js
+- runScript: ../../../selectors/ride-requests-selectors.js
+- runScript: ../../../creds/ride-requests-creds.js
+
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- tapOn: ${output.homeSelectors.home_section_title}
+- tapOn: ${output.homeSelectors.estimate_field}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+- tapOn:
+    point: ${output.rideRequestsSelectors.erase_icon_pickup}
+- tapOn: ${output.rideRequestsSelectors.pick_up_field}
+- inputText: ${output.rideRequestsCreds.not_supported_location}
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.not_supported_location_option}
+    commands:
+      - tapOn:  ${output.rideRequestsSelectors.not_supported_location_option}
+
+- tapOn: ${output.rideRequestsSelectors.destination_skip}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+- assertVisible: ${output.rideRequestsSelectors.not_supported_location_assertion}
+- tapOn:
+    point: ${output.rideRequestsSelectors.back_arrow}
+- tapOn:
+    point: ${output.rideRequestsSelectors.back_arrow}

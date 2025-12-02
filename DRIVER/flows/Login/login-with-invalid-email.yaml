@@ -1,0 +1,20 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../selectors/login-selectors.js
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../creds/login-creds.js
+
+- clearState: drift.armenia.driver
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    commands:  
+        - tapOn: ${output.loginSelectors.login_button}
+        - tapOn: ${output.loginSelectors.continue_email_button}
+        - tapOn: ${output.loginSelectors.email_field}
+        - inputText: ${output.loginCreds.invalid_email}
+        - assertVisible: ${output.loginSelectors.email_error}

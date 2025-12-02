@@ -1,0 +1,35 @@
+appId: drift.armenia
+---
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../selectors/activity-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../Login/login-with-valid-phone.yaml"
+
+- tapOn:
+    point: "50%,93%"
+
+- runFlow:
+    when:
+      notVisible: ${output.activtySelectors.ride_details_title}
+    file: "../RideRequests/RideType/ride-request-to-finish-state.yaml"
+
+- tapOn:
+    point: ${output.activtySelectors.first_ride_details}
+- runFlow:
+    when:
+      visible: ${output.activtySelectors.ride_details_title}
+    commands: 
+        - scrollUntilVisible:
+            element:
+              text: ${output.activtySelectors.delete_details}
+        - tapOn: ${output.activtySelectors.delete_details}
+        - assertVisible: ${output.activtySelectors.details_deleted_message}
+    
+
+    

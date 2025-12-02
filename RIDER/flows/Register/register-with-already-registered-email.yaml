@@ -1,0 +1,19 @@
+appId: drift.armenia
+---
+- runScript: ../../selectors/registration-selectors.js
+- runScript: ../../creds/registration-creds.js
+
+- clearState: drift.armenia  
+
+- launchApp
+- tapOn: ${output.registrationSelectors.sign_up_button}
+- tapOn:
+    point: ${output.registrationSelectors.continue_with_email_button}
+- tapOn:
+    point: ${output.registrationSelectors.email_field}
+- inputText: ${output.registrationCreds.already_registered_email}
+- tapOn:
+    point: ${output.registrationSelectors.terms_of_use}
+- tapOn:
+    point: ${output.registrationSelectors.email_submit_button}
+- assertVisible: ${output.registrationSelectors.already_registered_email_error}

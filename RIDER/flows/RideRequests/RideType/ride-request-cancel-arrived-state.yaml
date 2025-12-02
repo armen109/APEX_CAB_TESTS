@@ -1,0 +1,93 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/activity-selectors.js
+- runScript: ../../../selectors/ride-requests-selectors.js
+- runScript: ../../../creds/ride-requests-creds.js
+
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- tapOn: ${output.homeSelectors.home_section_title}
+- tapOn: ${output.homeSelectors.estimate_field}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+- tapOn:
+    point: ${output.rideRequestsSelectors.erase_icon_pickup}
+- tapOn: ${output.rideRequestsSelectors.pick_up_field}
+- inputText: ${output.rideRequestsCreds.testing_pick_up}
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.pick_up_select_option}
+    commands:
+      - tapOn:  ${output.rideRequestsSelectors.pick_up_select_option}
+      - assertVisible: ${output.rideRequestsSelectors.pick_up_assertion}
+
+- tapOn: ${output.rideRequestsSelectors.destination_field}
+- inputText: ${output.rideRequestsCreds.testing_destination}
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.destination_select_option}
+    commands:
+      - tapOn: ${output.rideRequestsSelectors.destination_select_option}
+      - assertVisible: ${output.rideRequestsSelectors.destination_assertion}
+
+- tapOn: ${output.rideRequestsSelectors.continue_button}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.whos_ordering_ride_dialog}
+    commands: 
+      - tapOn:
+          point: ${output.rideRequestsSelectors.me_option}
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.order_ride_button}
+    commands:
+      - tapOn: ${output.rideRequestsSelectors.order_ride_button}
+      - assertVisible: ${output.rideRequestsSelectors.searhing_drivers_title}
+      
+- extendedWaitUntil:
+    notVisible: ${output.rideRequestsSelectors.finding_drivers}
+    timeout: 25000    
+
+- runFlow:
+    when:
+      notVisible: ${output.rideRequestsSelectors.finding_drivers}
+    commands:
+      - extendedWaitUntil:
+          visible: ${output.rideRequestsSelectors.driver_is_here_text}
+          timeout: 30000    
+      - assertVisible: ${output.rideRequestsSelectors.driver_is_here_text}
+      - repeat:
+          while:
+            notVisible: ${output.rideRequestsSelectors.cancel_button}
+          commands:
+            - swipe:
+                start: 50%, 70%
+                end: 50%, 50%
+      - tapOn: ${output.rideRequestsSelectors.cancel_button}
+      - tapOn: ${output.rideRequestsSelectors.confirm_button}
+      - tapOn: ${output.rideRequestsSelectors.dialog_cancel_button}
+      - assertVisible: ${output.rideRequestsSelectors.cancelled_ride_message}
+
+- runFlow:
+    when:
+      notVisible: ${output.rideRequestsSelectors.order_ride_button}
+    commands:
+      - tapOn:
+          point: ${output.rideRequestsSelectors.back_arrow}
+    
+

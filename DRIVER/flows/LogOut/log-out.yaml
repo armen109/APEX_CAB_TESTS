@@ -1,0 +1,18 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../selectors/log-out-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../Login/login-with-valid-phone.yaml"
+
+- tapOn:
+    point: ${output.homeSelectors.profile_section}
+- tapOn: ${output.logOutSelectors.log_out_button}
+- tapOn: ${output.logOutSelectors.log_out_button}
+- assertVisible: ${output.dashboardSelectors.welcome_title}

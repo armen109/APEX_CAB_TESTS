@@ -1,0 +1,19 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../selectors/register-selectors.js
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../creds/register-creds.js
+
+- clearState: drift.armenia.driver
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    commands:  
+        - tapOn: ${output.registerSelectors.sign_up_button}
+        - tapOn: ${output.registerSelectors    .phone_number_field}
+        - inputText: ${output.loginCreds.invalid_phone_number}
+        - assertVisible: ${output.loginSelectors.phone_error}

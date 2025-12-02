@@ -1,0 +1,51 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/log-out-selectors.js
+- runScript: ../../../selectors/personal-info-selector.js
+- runScript: ../../../creds/personal-info-creds.js
+
+- launchApp
+
+- runFlow:
+    when:
+      notVisible: ${output.personalInfoSelectors.service_details_title}
+    file: "../PersonalData/filling-personal-data.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.personalInfoSelectors.service_details_title}
+    commands:
+      - tapOn: ${output.personalInfoSelectors.tow_truck_type_service}
+      - tapOn: ${output.personalInfoSelectors.next_button}
+- tapOn: ${output.personalInfoSelectors.vehicle_details_number_field}
+- inputText: ${output.personalInfoCreds.valid_vehicle_details_number}
+- tapOn: ${output.personalInfoSelectors.car_make_field}
+- scrollUntilVisible:
+    element:
+      text: ${output.personalInfoSelectors.other_option}
+    speed: 80
+- tapOn: ${output.personalInfoSelectors.other_option}
+- tapOn: ${output.personalInfoSelectors.car_make_field}
+- inputText: ${output.personalInfoCreds.valid_car_make}
+- tapOn: ${output.personalInfoSelectors.car_model_field}
+- inputText: ${output.personalInfoCreds.valid_car_model}
+- tapOn: ${output.personalInfoSelectors.car_year_field}
+- tapOn: ${output.personalInfoCreds.car_year}
+- tapOn: ${output.personalInfoSelectors.car_color_field}
+- tapOn: ${output.personalInfoCreds.car_color}
+- tapOn: ${output.personalInfoSelectors.plate_number_field}
+- inputText: ${output.personalInfoCreds.valid_plate_number}
+- tapOn: ${output.personalInfoSelectors.gasoline_field}
+- tapOn: ${output.personalInfoCreds.gasoline}
+- tapOn: ${output.personalInfoSelectors.send_button}
+
+
+
+
+
+
+
+    
+
