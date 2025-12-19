@@ -5,6 +5,8 @@ const dashboardLocators = {
     armenian_changed_assertion: 'Գլխավոր',
     russian_changed_assertion: 'Главная',
     pending_drivers_section: 'Pending Drivers',
+    active_drivers_section: 'Active Drivers',
+    other_drivers_section: 'Rejected / Banned Drivers',
     rider_section: '[href="#rider"]',
     rider_page: 'Rider List',
     driver_section: '[href="#driver"]',

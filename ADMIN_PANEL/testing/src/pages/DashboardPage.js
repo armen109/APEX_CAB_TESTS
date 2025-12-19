@@ -47,3 +47,34 @@ export class DashboardPage {
   }
    
 }
+
+export class Filtration {
+  constructor(page) {
+    this.page = page;
+    this.base = new BasePage(page);
+  }
+
+  async selectFiltration(locator, select_option){
+    await this.base.clickButton(locator);
+    await this.base.clickButton(select_option);
+    // this.base.clickContainingButton('li', select_option);
+  }
+
+  async selectFiltrationLink(locator, select_option){
+    await this.base.clickButton(locator);
+    await this.base.clickContainingButtonOnly('li', select_option);
+  }
+
+  async selectFiltrationBySearching(locator, search_locator, searched_word, select_option=null){
+    if(select_option==null){
+      select_option = searched_word;
+    }
+    await this.base.clickButton(locator);
+    await this.base.typeData(search_locator, searched_word);
+    await this.base.clickContainingButtonOnly('li', select_option)
+  }
+
+  async assertFiltration(data){
+    await this.base.containgingShouldBeVisibleOnly('td', data);
+  }
+}

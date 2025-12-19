@@ -1,5 +1,5 @@
 const generalLocators = {
-
+    
 }
 
 const generalConstants = {

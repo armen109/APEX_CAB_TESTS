@@ -6,6 +6,7 @@ const riderDetailsLocators = {
     rider_link: '.nav-link[href="https://admin.apexcab.net/rider"]',
     rider_edit_icon: '[title="Edit Rider"]',
     rider_name_error: '#first_name_error',
+    rider_page_title: '.card-title.mb-0',
 }
 
 const riderDetailsConstants = {  
@@ -15,6 +16,9 @@ const riderDetailsConstants = {
     rider_name: 'ADMIN PANEL TEST',
     updated_rider_name: 'UPDATED ADMIN PANEL TEST',
     invalid_rider_name: 'A',
+    first_name_filter: 'Test',
+    status_filter: 'Active',
+    filter_phone_number: '37477777777',
 }
 
 export {riderDetailsLocators, riderDetailsConstants}

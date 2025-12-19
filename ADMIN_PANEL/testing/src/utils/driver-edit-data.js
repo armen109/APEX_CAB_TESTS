@@ -14,7 +14,27 @@ const driverEditConstants = {
     invalid_id_number: "12",
     invalid_ssn_number: "123",
     invalid_driver_license_number: "C1",
+    filtration_pending_name: 'Test',
+    filtration_pending_status: 'Pending',
+    filtration_pending_service: 'Start',
+    filtration_pending_phone_number: '77777777',
+    filtration_pending_service_type: 'ride',
+    filtration_active_first_name: 'Vanik',
+    filtration_active_service: 'Start',
+    filtration_active_phone_number: '41223280',
+    filtration_other_first_name: 'Հակոբ',
+    filtration_other_phone_number: '41433235',
+    filtration_other_status: 'Reject',
 }
+
+driverEditConstants.assertion_pending_phone_number =
+    `374${driverEditConstants.filtration_pending_phone_number}`;
+
+driverEditConstants.assertion_active_phone_number =
+    `374${driverEditConstants.filtration_active_phone_number}`;
+
+driverEditConstants.assertion_other_phone_number =
+    `374${driverEditConstants.filtration_other_phone_number}`;
 
 const driverEditLocators = {
     phone_number_field: "input#phone",

@@ -55,6 +55,10 @@ export class BasePage {
     await this.page.locator(locator).filter({ hasText: text }).click();
   }
 
+  async clickContainingButtonOnly(locator, text){
+    await this.page.locator(locator).getByText(text, { exact: true }).click();  
+  }
+
   async clickContainingButtonForced(locator, text) {
     await this.page.locator(locator).filter({ hasText: text }).click({ force: true });
   }
@@ -90,6 +94,10 @@ export class BasePage {
 
   async containingShouldBeVisible(locator, text) {
     await expect(this.page.locator(locator).filter({ hasText: text })).toBeVisible();
+  }
+
+  async containgingShouldBeVisibleOnly(locator, text){
+    await expect(this.page.locator(locator).getByText(text, { exact: true })).toBeVisible();  
   }
 
   async shouldNotBeVisible(locator) {
