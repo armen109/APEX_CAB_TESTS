@@ -1,5 +1,8 @@
 const generalLocators = {
-    
+    entries: '[name="dataTableBuilder_length"]',
+    processing_state: '#dataTableBuilder_processing',
+    empty_data_tables_text: '.dataTables_empty',
+    scroll_content: '.scroll-content',
 }
 
 const generalConstants = {

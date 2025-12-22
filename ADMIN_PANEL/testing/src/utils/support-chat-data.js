@@ -9,6 +9,11 @@ const supportChatLocators = {
     status_field: '#select2-status-container',
     status_option: '[class="select2-results__option"]',
     save_button: 'input[type="submit"]',
+    phone_number_search: '#phone_number',
+    room_reason_filtration: '#select2-room_reason-container',
+    rider_filtration: '.select2-selection__placeholder',
+    driver_filtration: '.select2-selection__placeholder',
+    status_filtration: '#select2-status-container',
 }
 
 const supportChatConstants = {

@@ -50,17 +50,17 @@ export class RiderEditPage {
     await this.base.clickButton(riderDetailsLocators.update_button);
   }
 
-  async doRiderFiltrations(name = true, status = true, phone_number = true) {
-    // TODO: erevi sax ridernerin ches cuyc tvel, dra hamar el error stacar, vaxy mi hat function kgres vor minchev filtrationy nshi sax usernerin
+ async doRiderFiltrations(name = true, status = true, phone_number = true) {
+    await this.base.shouldBeVisibleFirst('td');
     const fields = [];
     if (name) fields.push('name');
     if (status) fields.push('status');
     if (phone_number) fields.push('contact number'); 
   
     const data = await this.baseComplicated.getDataFromTable(fields);
-    data.forEach(element => {
-      console.log(element);
-    });
+    
+    console.log('Retrieved data:', data);
+    console.log('Fields to filter:', fields);
   
     let applied = false;
   
@@ -81,16 +81,18 @@ export class RiderEditPage {
       applied = true;
     }
   
-    if (fields.includes('contact number') && data.phone) { 
+    if (fields.includes('contact number') && data['contact number']) { 
       await this.base.typeData(
         driverListLocators.filter_phone_number,
-        data.phone
+        data['contact number']
       );
       applied = true;
     }
   
     if (applied) {
       await this.base.clickButton(driverListLocators.apply_button);
+      const assertionValue = data['contact number'] || data.status || data.name;
+      await this.filtration.assertFiltration(assertionValue);
     } else {
       throw new Error(
         'No valid fields found to apply filters in Rider section'

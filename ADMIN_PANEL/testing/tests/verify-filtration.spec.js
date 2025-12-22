@@ -5,11 +5,19 @@ import { DashboardPage } from '../src/pages/DashboardPage';
 import { loginConstants } from '../src/utils/login-data';
 import { DriverListPage } from '../src/pages/DriverListPage';
 import { RiderEditPage } from '../src/pages/RiderEditPage';
-import { generalConstants } from '../src/utils/general-data';
+import { RideRequestsPage } from '../src/pages/RideRequestsPage';
+import { SupportChatPage } from '../src/pages/SupportChatPage';
+import { ReportPage } from '../src/pages/ReportsPage';
+import { Filtration } from '../src/pages/DashboardPage';
+import { BaseComplicatedPage } from '../src/pages/BaseComplicatedPage';
+import { generalConstants, generalLocators } from '../src/utils/general-data';
 import { driverListConstants, driverListLocators } from '../src/utils/driver-list-data';
 import { dashboardConstants, dashboardLocators } from '../src/utils/dashboard-data';
 import { driverEditConstants } from '../src/utils/driver-edit-data';
 import { riderDetailsLocators, riderDetailsConstants } from '../src/utils/rider-edit-data';
+import { rideRequestsConstants, rideRequestsLocators } from '../src/utils/ride_requests-data';
+import { supportChatConstants } from '../src/utils/support-chat-data';
+import { reportsConstants, reportsLocators } from '../src/utils/report-data';
 
 test('verify pending driver section filtration', async ({ page }) => {
     const basePage = new BasePage(page);
@@ -87,6 +95,7 @@ test('verify rider section filtration', async ({ page }) =>{
   const loginPage = new LoginPage(page);
   const dashboardPage = new DashboardPage(page);
   const riderEditPage = new RiderEditPage(page);
+  const filtration = new Filtration(page);
 
   await basePage.visitURL(generalConstants.admin_panel_url)
   await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
@@ -94,43 +103,225 @@ test('verify rider section filtration', async ({ page }) =>{
   await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
   await dashboardPage.goToRiderSection(dashboardLocators.rider_page);
   await basePage.shouldBeVisible(riderDetailsLocators.rider_page_title);
-  await riderEditPage.doRiderFiltration(
-    riderDetailsConstants.first_name_filter,
-    riderDetailsConstants.status_filter,
-    riderDetailsConstants.filter_phone_number
-  );
-  await riderEditPage.assertRiderFiltration(
-    riderDetailsConstants.filter_phone_number,
-  )
+  await filtration.selectEntries('100')
+  await riderEditPage.doRiderFiltrations()
 });
 
-// TODO
-// test('verify all ride requests filtration', async ({ page }) =>{
+test('verify all ride requests filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const rideRequestsPage = new RideRequestsPage(page);
+  const filtration = new Filtration(page);
 
-// });
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+  await dashboardPage.goToRideRequestsSection(dashboardLocators.all_ride_requests_page);
+  //as ther are too many ride requests sometimes the entries filtration is not working
+  // await filtration.selectEntries('100', rideRequestsLocators.ride_requests_entries)
+  await rideRequestsPage.doRideRequestsFiltration()
+});
 
-// test('verify new ride requests filtration', async ({ page }) =>{
+test('verify new ride requests filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const rideRequestsPage = new RideRequestsPage(page);
+  const filtration = new Filtration(page);
 
-// });
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+  await dashboardPage.goToRideRequestsSection(dashboardLocators.new_ride_requests_page);
+  //as ther are too many ride requests sometimes the entries filtration is not working
+  // await filtration.selectEntries('100', rideRequestsLocators.ride_requests_entries)
+  await rideRequestsPage.doRideRequestsFiltration()
+});
 
-// test('verify completed ride requests filtration', async ({ page }) =>{
+test('verify completed ride requests filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const rideRequestsPage = new RideRequestsPage(page);
+  const filtration = new Filtration(page);
 
-// });
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+  await dashboardPage.goToRideRequestsSection(dashboardLocators.completed_ride_requests_page);
+  //as ther are too many ride requests sometimes the entries filtration is not working
+  // await filtration.selectEntries('100', rideRequestsLocators.ride_requests_entries)
+  await rideRequestsPage.doRideRequestsFiltration()
+});
 
-// test('verify missed ride requests filtration', async ({ page }) =>{
+test('verify missed ride requests filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const rideRequestsPage = new RideRequestsPage(page);
+  const filtration = new Filtration(page);
 
-// });
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+  await dashboardPage.goToRideRequestsSection(dashboardLocators.missed_ride_requests_page);
+  //as ther are too many ride requests sometimes the entries filtration is not working
+  // await filtration.selectEntries('100', rideRequestsLocators.ride_requests_entries)
+  await rideRequestsPage.doRideRequestsFiltration(true)
+});
 
-// test('verify cancelled ride requests filtration', async ({ page }) =>{
+test('verify cancelled ride requests filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const rideRequestsPage = new RideRequestsPage(page);
+  const filtration = new Filtration(page);
 
-// });
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+  await dashboardPage.goToRideRequestsSection(dashboardLocators.cancelled_ride_requests_page);
+  //as ther are too many ride requests sometimes the entries filtration is not working
+  // await filtration.selectEntries('100', rideRequestsLocators.ride_requests_entries)
+  await rideRequestsPage.doRideRequestsFiltration()
+});
 
-// test('verify pending ride requests filtration', async ({ page }) =>{
+test('verify pending ride requests filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const rideRequestsPage = new RideRequestsPage(page);
+  const filtration = new Filtration(page);
 
-// });
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+  await dashboardPage.goToRideRequestsSection(dashboardLocators.pending_ride_requests_page);
+  //as ther are too many ride requests sometimes the entries filtration is not working
+  // await filtration.selectEntries('100', rideRequestsLocators.ride_requests_entries)
+  await rideRequestsPage.doRideRequestsFiltration()
+});
 
-// test('verify support list filtration', async ({ page }) =>{
+test('verify support list filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const supportChatPage = new SupportChatPage(page);
+  const rideRequestsPage = new RideRequestsPage(page);
+  const filtration = new Filtration(page);
 
-// });
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
+  await dashboardPage.goToSupportChatSection(dashboardLocators.room_list_page);
+  await filtration.selectEntries('100')
+  await supportChatPage.doSupportChatFiltration()
+});
 
-//TO DO: MAKE A FILTRATION FUNCTION FOR REPORTS
+test('verify ride reports list filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const reportsPage = new ReportPage(page);
+  const filtration = new Filtration(page);
+
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
+  await dashboardPage.goToReportPage(dashboardLocators.ride_report_page);
+  await basePage.waitingFixedTime(5000);
+  await reportsPage.allReportFiltration(
+    reportsConstants.filtration_driver, 
+    reportsConstants.filtration_rider, 
+    reportsConstants.fltration_type
+  );
+});
+
+test('verify earnings reports list filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const reportsPage = new ReportPage(page);
+  const filtration = new Filtration(page);
+  const complicatedBase = new BaseComplicatedPage(page);
+
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
+  await dashboardPage.goToReportPageWithScroll(dashboardLocators.earnings_report_page);
+  await basePage.waitingFixedTime(5000);
+  await reportsPage.driverReportFiltration(
+      reportsConstants.fltration_type,
+      reportsConstants.filtration_payment_method
+  );
+});
+
+test('verify driver top-up reports list filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const reportsPage = new ReportPage(page);
+  const filtration = new Filtration(page);
+  const complicatedBase = new BaseComplicatedPage(page);
+
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
+  await dashboardPage.goToReportPageWithScroll(dashboardLocators.top_up_report_page);
+  await basePage.waitingFixedTime(5000);
+  await reportsPage.allReportFiltration(
+    reportsConstants.filtration_driver, 
+  );
+});
+
+test('verify ride tax service reports list filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const reportsPage = new ReportPage(page);
+  const filtration = new Filtration(page);
+  const complicatedBase = new BaseComplicatedPage(page);
+
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
+  await dashboardPage.goToReportPageWithScroll(dashboardLocators.tax_report_page);
+  await basePage.waitingFixedTime(5000);
+  await reportsPage.taxReportFiltration(
+    reportsConstants.filtration_driver,
+    reportsConstants.fltration_type 
+  );
+});
+
+test('verify truck tax service reports list filtration', async ({ page }) =>{
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+  const reportsPage = new ReportPage(page);
+  const filtration = new Filtration(page);
+  const complicatedBase = new BaseComplicatedPage(page);
+
+  await basePage.visitURL(generalConstants.admin_panel_url)
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
+  await dashboardPage.goToReportPageWithScroll(dashboardLocators.truck_tax_report_page);
+  await basePage.waitingFixedTime(5000);
+  await reportsPage.taxReportFiltration(
+    reportsConstants.filtration_driver,
+    reportsConstants.filtration_truck_service 
+  );
+});
+

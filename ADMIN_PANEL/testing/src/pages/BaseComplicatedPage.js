@@ -8,35 +8,14 @@ export class BaseComplicatedPage {
     this.base = new BasePage(page);
   }
 
-  async selectFiltration(locator, select_option) {
-    await this.base.clickButton(locator);
-    await this.base.clickButton(select_option);
-  }
-
-  async selectFiltrationLink(locator, select_option) {
-    await this.base.clickButton(locator);
-    await this.base.clickContainingButtonOnly('li', select_option);
-  }
-
-  async selectFiltrationBySearching(
-    locator,
-    search_locator,
-    searched_word,
-    select_option = null
-  ) {
-    if (select_option === null) {
-      select_option = searched_word;
-    }
-    await this.base.clickButton(locator);
-    await this.base.typeData(search_locator, searched_word);
-    await this.base.clickContainingButtonOnly('li', select_option);
-  }
-
-  async assertFiltration(data) {
-    await this.base.containgingShouldBeVisibleOnly('td', data);
+  async scrollNotMainScroll(locator, coordinates) {
+      await this.page.locator(locator).evaluate((el, coords) => {
+        el.style.transform = `translate3d(0px, ${coords}px, 0px)`;
+      }, coordinates);
   }
 
   async getDataFromTable(fields) {
+    this.base.waitingFixedTime(2000)
     const requiredFields = fields.map(f => f.toLowerCase());
   
     const result = await this.page.evaluate(({ requiredFields }) => {
@@ -46,33 +25,46 @@ export class BaseComplicatedPage {
       const headers = Array.from(
         table.querySelectorAll('thead th')
       ).map(th => th.innerText.trim().toLowerCase());
+      console.log(`Headers: \n ${headers}`)
   
       const columnIndexes = requiredFields.map(field => {
-        const index = headers.findIndex(h => h.includes(field));
+        const index = headers.findIndex(h => h === field);
         if (index === -1) {
           throw new Error(`Column "${field}" not found in table headers`);
         }
-        return index;
+        return { field, index };
       });
   
       const rows = Array.from(table.querySelectorAll('tbody tr'));
+      console.log(`Rows: \n ${rows}`)
   
       for (const row of rows) {
         const cells = Array.from(row.querySelectorAll('td')).map(td =>
           td.innerText.trim()
         );
+        console.log(cells);
   
-        const rowData = columnIndexes.map(i => cells[i]);
+        const rowData = {};
+        let allFieldsPresent = true;
+        
+        for (const { field, index } of columnIndexes) {
+          const value = cells[index];
+          if (!value) {
+            allFieldsPresent = false;
+            break;
+          }
+          rowData[field] = value;
+        }
+
+        console.log(rowData);
   
-        if (rowData.every(value => value)) {
+        if (allFieldsPresent) {
           return rowData;
         }
       }
-  
       throw new Error('No row contains all required fields');
     }, { requiredFields });
   
     return result;
   }
-  
 }

@@ -55,6 +55,10 @@ export class BasePage {
     await this.page.locator(locator).filter({ hasText: text }).click();
   }
 
+  async clickContainingButtonOnlyFirst(locator, text){
+    await this.page.locator(locator).getByText(text, { exact: true }).first().click();  
+  }
+
   async clickContainingButtonOnly(locator, text){
     await this.page.locator(locator).getByText(text, { exact: true }).click();  
   }
@@ -92,6 +96,10 @@ export class BasePage {
     await expect(this.page.locator(locator)).toBeVisible();
   }
 
+  async shouldBeVisibleFirst(locator) {
+    await expect(this.page.locator(locator).first()).toBeVisible();
+  }
+
   async containingShouldBeVisible(locator, text) {
     await expect(this.page.locator(locator).filter({ hasText: text })).toBeVisible();
   }
@@ -100,12 +108,20 @@ export class BasePage {
     await expect(this.page.locator(locator).getByText(text, { exact: true })).toBeVisible();  
   }
 
+  async containgingShouldBeVisibleOnlyFirst(locator, text){
+    await expect(this.page.locator(locator).getByText(text, { exact: true }).first()).toBeVisible();  
+  }
+
   async shouldNotBeVisible(locator) {
     await expect(this.page.locator(locator)).not.toBeVisible();
   }
 
   async containingShouldNotBeVisible(locator, text) {
     await expect(this.page.locator(locator).filter({ hasText: text })).not.toBeVisible();
+  }
+
+  async waitUntilNotVisible(locator){
+    await this.page.locator(locator).waitFor({ state: 'hidden' });
   }
 
   async selectDropdownMenu(locator, option) {
@@ -162,6 +178,10 @@ export class BasePage {
 
   async assertTitle(locator, text){
     await expect(this.page.locator(locator)).toHaveAttribute('title', text);
+  }
+
+  async scrollUntilVisible(locator){
+    await this.page.locator(locator).scrollIntoViewIfNeeded();
   }
   
 }
