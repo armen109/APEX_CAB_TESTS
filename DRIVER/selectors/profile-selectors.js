@@ -1,0 +1,3 @@
+output.profileSelectors={
+    profilePage: "Հաշիվ",
+}

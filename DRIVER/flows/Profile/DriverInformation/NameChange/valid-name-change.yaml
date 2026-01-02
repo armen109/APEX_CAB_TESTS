@@ -1,0 +1,44 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../../selectors/home-selectors.js
+- runScript: ../../../../selectors/profile-selectors.js
+- runScript: ../../../../selectors/driver-info-selectors.js
+- runScript: ../../../../creds/driver-info-creds.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.profilePage}
+- tapOn: ${output.driverInfoSelectors.driver_info_section}
+- tapOn: ${output.driverInfoSelectors.driver_name_label}
+- tapOn: ${output.driverInfoSelectors.name_input}
+- eraseText
+- inputText: ${output.driverInfoCreds.valid_name}
+- tapOn: ${output.driverInfoSelectors.last_name_input}
+- eraseText
+- inputText: ${output.driverInfoCreds.valid_last_name}
+- tapOn: ${output.driverInfoSelectors.update_button}
+- assertVisible: ${output.driverInfoSelectors.name_changed_snackbar}
+
+- tapOn: ${output.driverInfoSelectors.driver_name_label}
+- assertVisible: ${output.driverInfoCreds.valid_last_name}
+- assertVisible: ${output.driverInfoCreds.valid_name}
+
+- tapOn: ${output.driverInfoSelectors.name_input}
+- eraseText
+- inputText: ${output.driverInfoCreds.old_name}
+- tapOn: ${output.driverInfoSelectors.last_name_input}
+- eraseText
+- inputText: ${output.driverInfoCreds.old_last_name}
+- tapOn: ${output.driverInfoSelectors.update_button}

@@ -1,0 +1,173 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/documents-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.profilePage}
+- tapOn: ${output.documentsSelectors.documentsPage}
+- runFlow: 
+    when:
+        visible: ${output.documentsSelectors.documents_not_provided_state}
+    commands:
+        - tapOn: ${output.documentsSelectors.profile_photo_document}
+        - runFlow: 
+            when:
+                visible: ${output.documentsSelectors.take_photo_button}
+            commands:
+                - assertVisible: ${output.documentsSelectors.take_photo_button}
+                - tapOn: ${output.documentsSelectors.take_photo_button}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - assertVisible: ${output.documentsSelectors.pending_snackbar}
+                - assertVisible: ${output.documentsSelectors.pending_message}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_arrow}
+
+        - tapOn: ${output.documentsSelectors.id_passport_document}
+        - runFlow: 
+            when:
+                notVisible: ${output.documentsSelectors.update_button}
+            commands:
+                - tapOn: ${output.documentsSelectors.passport_page}
+                - tapOn: ${output.documentsSelectors.next_button}
+                - tapOn:
+                    point: ${output.documentsSelectors.front_page}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_page}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - assertVisible: ${output.documentsSelectors.pending_message}
+                - assertVisible: ${output.documentsSelectors.pending_snackbar}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_arrow}
+
+        - tapOn: ${output.documentsSelectors.driver_license_document}
+        - runFlow: 
+            when:
+                notVisible: ${output.documentsSelectors.update_button}
+            commands:
+                - tapOn:
+                    point: ${output.documentsSelectors.front_page_2}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_page_2}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - assertVisible: ${output.documentsSelectors.pending_snackbar}
+                - assertVisible: ${output.documentsSelectors.driver_license_pending}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_arrow}
+
+        - tapOn: ${output.documentsSelectors.vehicle_registration_document}
+        - runFlow: 
+            when:
+                notVisible: ${output.documentsSelectors.update_button}
+            commands:
+                - tapOn:
+                    point: ${output.documentsSelectors.front_page}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_page}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - assertVisible: ${output.documentsSelectors.pending_snackbar}
+                - assertVisible: ${output.documentsSelectors.vehicle_registration_pending}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_arrow}
+
+        - tapOn: ${output.documentsSelectors.car_photos_documents}
+        - runFlow: 
+            when:
+                notVisible: ${output.documentsSelectors.update_button}
+            commands:
+                - runFlow:
+                    when:
+                        visible: ${output.documentsSelectors.car_front_photo_text}
+                    commands:
+                        - tapOn:
+                            point: ${output.documentsSelectors.car_front_photo}
+                        - tapOn: ${output.documentsSelectors.camera_button}
+                        - tapOn: ${output.documentsSelectors.done_icon}
+                - runFlow:
+                    when:
+                        visible: ${output.documentsSelectors.car_back_photo_text}
+                    commands:
+                        - tapOn:
+                            point: ${output.documentsSelectors.car_back_photo}
+                        - tapOn: ${output.documentsSelectors.camera_button}
+                        - tapOn: ${output.documentsSelectors.done_icon}
+                - runFlow:
+                    when:
+                        visible: ${output.documentsSelectors.car_left_photo_text}
+                    commands:
+                        - tapOn:
+                            point: ${output.documentsSelectors.car_left_photo}
+                        - tapOn: ${output.documentsSelectors.camera_button}
+                        - tapOn: ${output.documentsSelectors.done_icon}
+                - runFlow:
+                    when:
+                        visible: ${output.documentsSelectors.car_right_photo_text}
+                    commands:
+                        - tapOn:
+                            point: ${output.documentsSelectors.car_right_photo}
+                        - tapOn: ${output.documentsSelectors.camera_button}
+                        - tapOn: ${output.documentsSelectors.done_icon}
+                - runFlow:
+                    when:
+                        visible: ${output.documentsSelectors.front_seats_photo_text}
+                    commands:
+                        - tapOn:
+                            point: ${output.documentsSelectors.front_seats_photo}
+                        - tapOn: ${output.documentsSelectors.camera_button}
+                        - tapOn: ${output.documentsSelectors.done_icon}
+                - runFlow:
+                    when:
+                        visible: ${output.documentsSelectors.middle_seats_photo_text}
+                    commands:
+                        - tapOn:
+                            point: ${output.documentsSelectors.middle_seats_photo}
+                        - tapOn: ${output.documentsSelectors.camera_button}
+                        - tapOn: ${output.documentsSelectors.done_icon}
+                - runFlow:
+                    when:
+                        visible: ${output.documentsSelectors.back_seats_photo_text}
+                    commands:
+                        - tapOn:
+                            point: ${output.documentsSelectors.back_seats_photo}
+                        - tapOn: ${output.documentsSelectors.camera_button}
+                        - tapOn: ${output.documentsSelectors.done_icon}
+                - assertVisible: ${output.documentsSelectors.car_photos_pending}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_arrow}
+
+        - tapOn: ${output.documentsSelectors.ssn_photos_documents}
+        - runFlow: 
+            when:
+                visible: ${output.documentsSelectors.take_photo_button}
+            commands:
+                - tapOn: ${output.documentsSelectors.take_photo_button}
+                - tapOn: ${output.documentsSelectors.camera_button}
+                - tapOn: ${output.documentsSelectors.done_icon}
+                - assertVisible: ${output.documentsSelectors.pending_snackbar}
+                - assertVisible: ${output.documentsSelectors.ssn_pending}
+                - tapOn:
+                    point: ${output.documentsSelectors.back_arrow}

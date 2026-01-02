@@ -1,0 +1,37 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/service-settings-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.profilePage}
+- tapOn: ${output.serviceSettingsSelectors.service_settings_section}
+- runFlow:
+    when:
+      notVisible: ${output.serviceSettingsSelectors.dont_have_active_tariffs}
+    commands:
+      - runFlow:
+          when:
+            visible: ${output.serviceSettingsSelectors.testing_tariff}
+          commands:
+            - tapOn:
+                point: ${output.serviceSettingsSelectors.first_tariff_option}
+            - tapOn: ${output.serviceSettingsSelectors.update_button}
+            - assertVisible: ${output.serviceSettingsSelectors.settigns_changed_snackbar}
+            - tapOn:
+                point: ${output.serviceSettingsSelectors.first_tariff_option}
+            - tapOn: ${output.serviceSettingsSelectors.update_button}

@@ -1,0 +1,29 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../../selectors/home-selectors.js
+- runScript: ../../../../selectors/profile-selectors.js
+- runScript: ../../../../selectors/driver-info-selectors.js
+- runScript: ../../../../creds/driver-info-creds.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.profilePage}
+- tapOn: ${output.driverInfoSelectors.driver_info_section}
+- tapOn: ${output.driverInfoSelectors.id_passport_page}
+- tapOn: ${output.driverInfoSelectors.id_passport_input}
+- eraseText
+- inputText: ${output.driverInfoCreds.invalid_id}
+- tapOn: ${output.driverInfoSelectors.update_button}
+- assertVisible: ${output.driverInfoSelectors.id_error}

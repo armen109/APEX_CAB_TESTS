@@ -1,0 +1,63 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/service-settings-selectors.js
+- runScript: ../../../creds/vehicle-details-creds.js
+- runScript: ../../../selectors/personal-info-selector.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.profilePage}
+- tapOn: ${output.personalInfoSelectors.vehicle_details_section}
+- tapOn:
+    point: ${output.personalInfoSelectors.car_first_option}
+
+- tapOn: ${output.personalInfoSelectors.vehicle_details_number_field}
+- eraseText
+- inputText: ${output.vehicleDetailsCreds.valid_vehicle_details_number}
+- tapOn: ${output.personalInfoSelectors.car_make_field}
+- scrollUntilVisible:
+    element:
+      text: ${output.personalInfoSelectors.other_option}
+    speed: 80
+- tapOn: ${output.personalInfoSelectors.other_option}
+- tapOn: ${output.personalInfoSelectors.car_make_field}
+- inputText: ${output.vehicleDetailsCreds.valid_car_make}
+- tapOn: ${output.personalInfoSelectors.car_model_field}
+- inputText: ${output.vehicleDetailsCreds.valid_car_model}
+- tapOn: ${output.personalInfoSelectors.car_year_field}
+- tapOn: ${output.vehicleDetailsCreds.car_year}
+- tapOn: ${output.personalInfoSelectors.car_color_field}
+- tapOn: ${output.vehicleDetailsCreds.car_color}
+- tapOn: ${output.personalInfoSelectors.plate_number_field}
+- eraseText
+- inputText: ${output.vehicleDetailsCreds.valid_plate_number}
+- tapOn: ${output.personalInfoSelectors.gasoline_field}
+- tapOn: ${output.vehicleDetailsCreds.gasoline}
+- tapOn: ${output.personalInfoSelectors.seats_field}
+- tapOn: ${output.vehicleDetailsCreds.seats_quantity}
+- tapOn: ${output.personalInfoSelectors.update_button}
+
+- tapOn:
+    point: ${output.personalInfoSelectors.car_first_option}
+- assertVisible: ${output.vehicleDetailsCreds.valid_vehicle_details_number}
+- assertVisible: ${output.vehicleDetailsCreds.valid_car_make}
+- assertVisible: ${output.vehicleDetailsCreds.valid_car_model}
+- assertVisible: ${output.vehicleDetailsCreds.car_year}
+- assertVisible: ${output.vehicleDetailsCreds.car_color}
+- assertVisible: ${output.vehicleDetailsCreds.valid_plate_number}
+- assertVisible: ${output.vehicleDetailsCreds.gasoline}
+- assertVisible: ${output.vehicleDetailsCreds.seats_quantity}

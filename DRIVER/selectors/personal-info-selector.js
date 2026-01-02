@@ -1,3 +1,7 @@
+// require('../creds/personal-info-creds.js');
+
+// const carColor = output.personalInfoCreds.car_color.replace(/^\.\*|\*\.$/g, '');
+
 output.personalInfoSelectors={
     welcome_personal_data: ".*Բարի գալուստ Apex Cab.*",  
     name_field: "Անուն",
@@ -26,4 +30,8 @@ output.personalInfoSelectors={
     gasoline_field: ".*Վառելիքի տեսակ.*",
     seats_field: ".*Ուղևորների նստատեղերի քանակ.*",
     send_button: "Ուղարկել",
+    vehicle_details_section: "Մեքենայի տվյալներ",
+    // car_option: `.*${carColor}.*`,
+    car_first_option: "50%,25%",
+    update_button: "Թարմացնել",
 }
