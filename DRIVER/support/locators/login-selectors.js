@@ -1,0 +1,17 @@
+output.loginSelectors={
+    login_button: "Մուտք",
+    phone_number_field: "50%,22%",
+    login_confirm_button: "Մուտք գործել հեռախոսով",
+    otp_field: "34%,31%",
+    otp_confirm_button: "Հաստատել",
+    assert_destination_field: "Մուտքագրեք նշանակետը",
+    phone_error: "Անվավեր հեռախոսահամար",
+    email_error: "Էլ․ հասցեն անվավեր է",
+    not_registered_phone_error: "Այս համարը գրանցված չէ։ Նախ գրանցվեք",
+    not_registered_email_error: "Այս էլ. փոստը գրանցված չէ։ Նախ գրանցվեք",
+    otp_error: "Incorrect code. Please try again.",
+    otp_page_title: "Հաստատման կոդ",
+    back_arrow_dashboard: "com.google.android.inputmethod.latin:id/0_resource_name_obfuscated",
+    continue_email_button: "50%,53%",
+    email_login_button: "50%,30%",
+}

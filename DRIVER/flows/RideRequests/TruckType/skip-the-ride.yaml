@@ -1,0 +1,44 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/ride-requests-selectors.js
+- runScript: ../../../scripts/extractData.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- assertWithAI:
+    assertion: No any messages found in red field on home screen after login.
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.receive_rides_button}
+    commands:
+      - tapOn: ${output.homeSelectors.receive_rides_button}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+
+- assertWithAI:
+    assertion: Map is opened.
+
+- runFlow: ../../../support/flows/send-ride-request-without-destination-truck-type.yaml
+
+
+- launchApp:
+    stopApp: false
+
+- extendedWaitUntil:
+    visible: ${output.rideRequestSelectors.skipped_ride_snackbar} 
+    timeout: 40000 

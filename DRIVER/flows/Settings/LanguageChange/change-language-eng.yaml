@@ -1,0 +1,34 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/settings-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.settings_page}
+- tapOn:
+    point: ${output.settingsSelectors.language_page}
+- tapOn: ${output.settingsSelectors.english_lang}
+- tapOn:
+    point:  ${output.settingsSelectors.language_update}
+- assertWithAI:
+    assertion: Language updated successfully to English.
+- tapOn:
+    point: ${output.settingsSelectors.language_page}
+- tapOn: ${output.settingsSelectors.armenian_lang}
+- tapOn:
+    point:  ${output.settingsSelectors.language_update}

@@ -22,6 +22,8 @@ output.personalInfoSelectors={
     truck_type_service: ".*Բեռնատար.*",
     tow_truck_typr_service: "․*Քարշակ.*",
     car_make_field: ".*Արտադրող.*",
+    other_car_make : "Արտադրող\nԱյլ․",
+    other_car_model : "Ավտոմեքենայի մոդել\nԱյլ․",
     other_option: "Այլ",
     car_model_field: ".*Ավտոմեքենայի մոդել.*",
     car_year_field: ".*Տարի.*",
@@ -34,4 +36,5 @@ output.personalInfoSelectors={
     // car_option: `.*${carColor}.*`,
     car_first_option: "50%,25%",
     update_button: "Թարմացնել",
+    back_arrow: "7%,10%",
 }

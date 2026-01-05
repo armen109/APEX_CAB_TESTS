@@ -1,0 +1,36 @@
+appId: drift.armenia
+---
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../selectors/profile-selectors.js
+- runScript: ../../selectors/customer-support-selectors.js
+- runScript: ../../creds/cutomer-support-creds.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.customer_support_page}
+- tapOn: ${output.customerSupportSelectors.customer_support}
+- tapOn: ${output.customerSupportSelectors.new_request}
+- tapOn: ${output.customerSupportSelectors.next_button}
+- tapOn: ${output.customerSupportSelectors.request_input_field}
+- inputText: ${output.customerSupportCreds.customer_request_text}
+- tapOn:
+    point: ${output.customerSupportSelectors.send_icon}
+- assertVisible: ${output.customerSupportCreds.customer_request_assertion}
+
+- tapOn:
+    point: ${output.customerSupportSelectors.delete_icon}
+- tapOn: ${output.customerSupportSelectors.delete_button}
+- assertVisible: ${output.customerSupportSelectors.chat_deleted_assertion}

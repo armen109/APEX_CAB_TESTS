@@ -1,0 +1,61 @@
+appId: drift.armenia
+---
+- runScript: ../locators/dashboard-selectors.js
+- runScript: ../locators/home-selectors.js
+- runScript: ../locators/ride-requests-selectors.js
+- runScript: ../creds/ride-requests-creds.js
+
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "./login-with-valid-phone.yaml"
+
+- tapOn: ${output.homeSelectors.home_section_title}
+- tapOn: ${output.homeSelectors.estimate_field}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.we_cant_find_location}
+    commands:
+      - tapOn:
+          point: ${output.rideRequestsSelectors.erase_icon_pickup}
+      - tapOn: ${output.rideRequestsSelectors.pick_up_field}
+      - inputText: ${output.rideRequestsCreds.testing_pick_up2}
+      - runFlow:
+          when:
+            visible: ${output.rideRequestsSelectors.pick_up_select_option2}
+          commands:
+            - tapOn:  ${output.rideRequestsSelectors.pick_up_select_option2}
+            - assertVisible: ${output.rideRequestsSelectors.pick_up_assertion2}
+
+
+- tapOn: ${output.rideRequestsSelectors.destination_skip}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.whos_ordering_ride_dialog}
+    commands: 
+      - tapOn:
+          point: ${output.rideRequestsSelectors.me_option}
+
+- scrollUntilVisible:
+      element:
+        text: ${output.rideRequestsSelectors.truck_tariff}
+- tapOn:
+    text: ${output.rideRequestsSelectors.truck_tariff}
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestsSelectors.order_ride_button}
+    commands:
+      - tapOn: ${output.rideRequestsSelectors.order_ride_button}
+      - assertVisible: ${output.rideRequestsSelectors.searhing_drivers_title}

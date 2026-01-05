@@ -5,6 +5,7 @@ appId: drift.armenia.driver
 - runScript: ../../../selectors/service-settings-selectors.js
 - runScript: ../../../creds/vehicle-details-creds.js
 - runScript: ../../../selectors/personal-info-selector.js
+- runScript: ../../../selectors/documents-selectors.js
 
 - launchApp
 
@@ -29,14 +30,20 @@ appId: drift.armenia.driver
 - eraseText
 - inputText: ${output.vehicleDetailsCreds.valid_vehicle_details_number}
 - tapOn: ${output.personalInfoSelectors.car_make_field}
-- scrollUntilVisible:
-    element:
-      text: ${output.personalInfoSelectors.other_option}
-    speed: 80
-- tapOn: ${output.personalInfoSelectors.other_option}
+- runFlow:
+    when:
+      notVisible: ${output.personalInfoSelectors.other_car_make}
+    commands:
+      - scrollUntilVisible:
+          element:
+            text: ${output.personalInfoSelectors.other_option}
+          speed: 80
+      - tapOn: ${output.personalInfoSelectors.other_option}
 - tapOn: ${output.personalInfoSelectors.car_make_field}
+- eraseText
 - inputText: ${output.vehicleDetailsCreds.valid_car_make}
 - tapOn: ${output.personalInfoSelectors.car_model_field}
+- eraseText
 - inputText: ${output.vehicleDetailsCreds.valid_car_model}
 - tapOn: ${output.personalInfoSelectors.car_year_field}
 - tapOn: ${output.vehicleDetailsCreds.car_year}
@@ -61,3 +68,15 @@ appId: drift.armenia.driver
 - assertVisible: ${output.vehicleDetailsCreds.valid_plate_number}
 - assertVisible: ${output.vehicleDetailsCreds.gasoline}
 - assertVisible: ${output.vehicleDetailsCreds.seats_quantity}
+
+- tapOn:
+    point: ${output.personalInfoSelectors.back_arrow}
+- tapOn:
+    point: ${output.personalInfoSelectors.back_arrow}
+- tapOn: ${output.documentsSelectors.documentsPage}
+- tapOn: ${output.documentsSelectors.car_photos_documents}
+- assertNotVisible: ${output.documentsSelectors.update_button}
+- tapOn:
+    point: ${output.personalInfoSelectors.back_arrow}
+- tapOn: ${output.documentsSelectors.vehicle_registration_document}
+- assertNotVisible: ${output.documentsSelectors.update_button}

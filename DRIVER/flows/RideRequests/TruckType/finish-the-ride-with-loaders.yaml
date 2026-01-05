@@ -1,0 +1,137 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/ride-requests-selectors.js
+- runScript: ../../../scripts/extractData.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands: 
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- assertWithAI:
+    assertion: No any messages found in red field on home screen after login.
+
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.receive_rides_button}
+    commands:
+      - tapOn: ${output.homeSelectors.receive_rides_button}
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+
+- assertWithAI:
+    assertion: Map is opened.
+
+- runFlow: ../../../support\flows\send-ride-request-with-loaders-truck-type.yaml
+
+
+- launchApp:
+    stopApp: false
+
+
+- assertVisible: ${output.rideRequestSelectors.pick_up_title}
+- assertVisible: ${output.rideRequestSelectors.ride_price}
+- assertVisible: ${output.rideRequestSelectors.preferences_title}
+- assertVisible: ${output.rideRequestSelectors.one_loader_assertion}
+
+
+- copyTextFrom: "Մեկնարկի հասցե.*"
+- evalScript: ${output.rawAddressText = maestro.copiedText}
+
+- copyTextFrom: "֏ .*-ից"
+- evalScript: ${output.rawPriceText = maestro.copiedText}
+
+- runScript: ../../../scripts/extractData.js
+
+- tapOn: ${output.rideRequestSelectors.ride_price}
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestSelectors.arrive_button}
+    commands:
+      - assertVisible: ${output.extractedData.capturedAddress}
+      - assertVisible: ${output.extractedData.capturedPrice}
+      - assertVisible: ${output.rideRequestSelectors.preferences_title}
+      - assertVisible: ${output.rideRequestSelectors.one_loader_assertion}
+      - tapOn: ${output.rideRequestSelectors.arrive_button}
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestSelectors.rider_arrived_button}
+    commands:
+      - assertVisible: ${output.extractedData.capturedAddress}
+      - assertVisible: ${output.extractedData.capturedPrice}
+      - assertVisible: ${output.rideRequestSelectors.preferences_title}
+      - assertVisible: ${output.rideRequestSelectors.one_loader_assertion}
+      - assertVisible: ${output.rideRequestSelectors.loaders_working_assertion}
+      - tapOn:
+            point: ${output.rideRequestSelectors.loaders_checkbox}
+      - assertWithAI:
+          assertion: "'Բեռնակիրները աշխատում են' checkbox is checked, and timer has been started."
+      - tapOn:
+            point: ${output.rideRequestSelectors.loaders_checkbox}
+      - tapOn: ${output.rideRequestSelectors.rider_arrived_button}
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestSelectors.start_ride_button}
+    commands:
+      - assertVisible: ${output.extractedData.capturedAddress}
+      - assertVisible: ${output.extractedData.capturedPrice}
+      - assertVisible: ${output.rideRequestSelectors.preferences_title}
+      - assertVisible: ${output.rideRequestSelectors.one_loader_assertion}
+      - tapOn: ${output.rideRequestSelectors.start_ride_button}
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestSelectors.finish_ride_button}
+    commands:
+      - assertVisible: ${output.rideRequestSelectors.preferences_title}
+      - assertVisible: ${output.rideRequestSelectors.one_loader_assertion}
+      - tapOn: ${output.rideRequestSelectors.wait_button}
+      - assertVisible: ${output.rideRequestSelectors.loaders_working_assertion}
+      - tapOn:
+            point: ${output.rideRequestSelectors.loaders_checkbox}
+      - assertWithAI:
+          assertion: "'Բեռնակիրները աշխատում են' checkbox is checked, and timer has been started."
+      - tapOn:
+            point: ${output.rideRequestSelectors.loaders_checkbox}
+      - tapOn: ${output.rideRequestSelectors.stop_waiting_button}
+      - tapOn: ${output.rideRequestSelectors.finish_ride_button}
+      - tapOn: ${output.rideRequestSelectors.finish_ride_button}
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestSelectors.details}
+    commands:
+      - tapOn: ${output.rideRequestSelectors.details}
+      - assertVisible: ${output.extractedData.capturedAddress}
+      - scroll
+      - assertVisible: ${output.extractedData.capturedPrice}
+      - assertVisible: ${output.rideRequestSelectors.preferences_title}
+      - assertVisible: ${output.rideRequestSelectors.one_loader_assertion}
+      - tapOn:
+          point: ${output.rideRequestSelectors.back_arrow_more_details}
+
+- runFlow:
+    when:
+      visible: ${output.rideRequestSelectors.done_button}
+    commands:
+      - tapOn: ${output.rideRequestSelectors.done_button}
+
+- assertWithAI:
+    assertion: Map is opened.
