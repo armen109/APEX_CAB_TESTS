@@ -33,8 +33,7 @@ appId: drift.armenia.driver
 - assertWithAI:
     assertion: Map is opened.
 
-- runFlow: ../../../support/flows/send-ride-request-with-destination-truck-type.yaml
-
+- runFlow: ../../../support/flows/send-ride-request-without-destination-evacuator-type.yaml
 
 - launchApp:
     stopApp: false
