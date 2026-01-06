@@ -41,4 +41,4 @@ test('change support chat status', async ({ page }) => {
      await supportChatPage.assertStatus(supportChatConstants.resolved_status);
      await supportChatPage.changeStatus(supportChatConstants.pending_status);
 
-    });
+});

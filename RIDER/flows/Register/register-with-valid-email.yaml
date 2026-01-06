@@ -1,0 +1,34 @@
+appId: drift.armenia
+---
+- runScript: ../../selectors/registration-selectors.js
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../scripts/fetch-otp.js 
+
+- evalScript: ${output.createInbox()}
+
+- clearState: drift.armenia  
+- launchApp
+
+- tapOn: ${output.registrationSelectors.sign_up_button}
+- tapOn:
+    point: ${output.registrationSelectors.continue_with_email_button}
+- tapOn:
+    point: ${output.registrationSelectors.email_field}
+
+- inputText: ${output.emailAddress}
+
+- tapOn:
+    point: ${output.registrationSelectors.terms_of_use}
+- tapOn:  ${output.registrationSelectors.email_submit_button}
+
+- evalScript: ${output.waitForOtp(output.inboxId)}
+
+# - assertVisible: ${output.registrationSelectors.otp_page_title}
+- tapOn:
+    point: ${output.registrationSelectors.otp_field}
+
+- inputText: ${output.otpCode}
+
+- tapOn:
+    text: ${output.registrationSelectors.otp_confirm_button}
+- assertVisible: ${output.dashboardSelectors.welcome_title}
