@@ -16,9 +16,9 @@ export class RiderEditPage {
 
   async selectRiderByName(riderName){
     await this.base.typeData(driverListLocators.search_field, riderName);
-    await this.base.waitingFixedTime(2500); 
+    // Wait for search results to appear and edit icon to be available
+    await this.page.locator(riderDetailsLocators.rider_edit_icon).first().waitFor({ state: 'visible' });
     await this.page.locator(riderDetailsLocators.rider_edit_icon).first().click({ force: true });
-    // await this.base.clickButtonForced(riderDetailsLocators.rider_edit_icon);
   }
 
   async updateRiderInfo(newName, newStatus, profilePath){

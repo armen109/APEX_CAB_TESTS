@@ -38,7 +38,12 @@ function getOtpCode() {
     output.otpCode = match ? match[1] : "0000";
 }
 
+function deleteCurrentInbox() {
+    http.delete(BASE_URL + '/inboxes/' + output.inboxId + '?apiKey=' + API_KEY);
+}
+
 output.createMailSlurpInbox = createMailSlurpInbox;
 output.getOtpCode = getOtpCode;
 output.createInbox = createMailSlurpInbox;
 output.waitForOtp = getOtpCode;
+output.deleteCurrentInbox = deleteCurrentInbox;

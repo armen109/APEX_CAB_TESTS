@@ -6,4 +6,5 @@ output.settingsSelectors={
     language_update: "50%,95%",
     english_assertion: "Settings",
     russian_assertion: "Настройки",
+    delete_account: "Ջնջել իմ հաշիվը",
 }

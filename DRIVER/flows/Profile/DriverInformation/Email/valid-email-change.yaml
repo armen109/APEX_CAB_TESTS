@@ -1,10 +1,10 @@
 appId: drift.armenia
 ---
-- runScript: ../../../selectors/dashboard-selectors.js
-- runScript: ../../../selectors/home-selectors.js
-- runScript: ../../../selectors/profile-selectors.js
-- runScript: ../../../creds/registration-creds.js
-- runScript: ../../../selectors/registration-selectors.js
+- runScript: ../../../../selectors/dashboard-selectors.js
+- runScript: ../../../../selectors/home-selectors.js
+- runScript: ../../../../selectors/profile-selectors.js\
+- runScript: ../../../../selectors/driver-info-selectors.js
+- runScript: ../../../../creds/driver-info-creds.js
 - runScript: ../../../creds/profile-creds.js
 - runScript: ../../../scripts/fetch-otp.js 
 
@@ -12,14 +12,10 @@ appId: drift.armenia
 
 - launchApp
 
-- runFlow:
-    when:
-      visible: ${output.dashboardSelectors.welcome_title}
-    file: "../../Login/login-with-valid-phone.yaml"
-
 - tapOn:
     point: ${output.homeSelectors.profile_section}
 - tapOn: ${output.profileSelectors.profile_page}
+- tapOn: ${output.driverInfoSelectors.driver_info_section}
 - tapOn:
     point: ${output.profileSelectors.email_edit}
 - tapOn:

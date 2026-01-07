@@ -10,17 +10,22 @@ import { driverListConstants } from '../src/utils/driver-list-data';
 import { dashboardConstants, dashboardLocators } from '../src/utils/dashboard-data';
 import { driverEditConstants } from '../src/utils/driver-edit-data';
 
+// Setup: Login before each test
+test.beforeEach(async ({ page }) => {
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  
+  await basePage.visitURL(generalConstants.admin_panel_url);
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+});
+
 test('edit driver info with valid creds', async ({ page }) => {
-     const basePage = new BasePage(page);
-     const loginPage = new LoginPage(page);
      const dashboardPage = new DashboardPage(page);
      const driverListPage = new DriverListPage(page);
      const driverEditPage = new DriverEditPage(page);
 
-     await basePage.visitURL(generalConstants.admin_panel_url)
-     await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
-     await basePage.assertURL(dashboardConstants.dashboard_url);
-     await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
      await dashboardPage.goToDriverSection(dashboardLocators.pending_drivers_section);
      await driverListPage.selectDriverByName(driverListConstants.driver_name);
      await driverEditPage.assertDisabledFields();
@@ -48,16 +53,10 @@ test('edit driver info with valid creds', async ({ page }) => {
 });
 
 test('edit driver info with invalid creds', async ({ page }) => {
-     const basePage = new BasePage(page);
-     const loginPage = new LoginPage(page);
      const dashboardPage = new DashboardPage(page);
      const driverListPage = new DriverListPage(page);
      const driverEditPage = new DriverEditPage(page);
 
-     await basePage.visitURL(generalConstants.admin_panel_url)
-     await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
-     await basePage.assertURL(dashboardConstants.dashboard_url);
-     await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
      await dashboardPage.goToDriverSection(dashboardLocators.pending_drivers_section);
      await driverListPage.selectDriverByName(driverListConstants.driver_name);
      await driverEditPage.assertDisabledFields();

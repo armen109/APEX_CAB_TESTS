@@ -1,0 +1,36 @@
+appId: drift.armenia.driver
+---
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../selectors/registration-selectors.js
+- runScript: ../../scripts/fetch-otp.js
+- evalScript: ${output.createInbox()}
+
+- clearState: drift.armenia.driver
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    commands:  
+        - tapOn: ${output.registrationSelectors.sign_up_button}
+        - tapOn: ${output.registrationSelectors.continue_email_button}
+        - tapOn: ${output.registrationSelectors.email_field}
+        - inputText: ${output.emailAddress}
+        - tapOn:
+              point: ${output.registrationSelectors.terms_of_use}
+        - tapOn:  ${output.registrationSelectors.email_submit_button}
+        - evalScript: ${output.waitForOtp(output.inboxId)}
+        - waitForAnimationToEnd:
+            timeout: 5000
+        - tapOn:
+            point: ${output.registrationSelectors.otp_field}
+        - inputText: ${output.otpCode}
+        - tapOn:
+            text: ${output.registrationSelectors.otp_confirm_button}
+        - evalScript: ${output.deleteCurrentInbox()}
+        - runFlow: 
+            file: "../Delete/delete-user.yaml"
+
+        - assertVisible: ${output.dashboardSelectors.welcome_title}

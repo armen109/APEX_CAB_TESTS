@@ -8,16 +8,21 @@ import { dashboardConstants, dashboardLocators } from '../src/utils/dashboard-da
 import { SupportChatPage } from '../src/pages/SupportChatPage';
 import { supportChatConstants } from '../src/utils/support-chat-data';
 
+// Setup: Login before each test
+test.beforeEach(async ({ page }) => {
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  
+  await basePage.visitURL(generalConstants.admin_panel_url);
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+});
+
 test('testing support chat', async ({ page }) => {
-     const basePage = new BasePage(page);
-     const loginPage = new LoginPage(page);
      const dashboardPage = new DashboardPage(page);
      const supportChatPage = new SupportChatPage(page);
 
-     await basePage.visitURL(generalConstants.admin_panel_url)
-     await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
-     await basePage.assertURL(dashboardConstants.dashboard_url);
-     await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
      await dashboardPage.goToSupportChatSection(dashboardLocators.room_list_page);
      await supportChatPage.selectChatByName(supportChatConstants.complaining_user);
      await supportChatPage.sendMessage(supportChatConstants.message);
@@ -26,15 +31,9 @@ test('testing support chat', async ({ page }) => {
 });
 
 test('change support chat status', async ({ page }) => {
-     const basePage = new BasePage(page);
-     const loginPage = new LoginPage(page);
      const dashboardPage = new DashboardPage(page);
      const supportChatPage = new SupportChatPage(page);
 
-     await basePage.visitURL(generalConstants.admin_panel_url)
-     await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
-     await basePage.assertURL(dashboardConstants.dashboard_url);
-     await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
      await dashboardPage.goToSupportChatSection(dashboardLocators.room_list_page);
      await supportChatPage.selectChatEditByName(supportChatConstants.complaining_user);
      await supportChatPage.changeStatus(supportChatConstants.resolved_status);

@@ -15,7 +15,10 @@ export class BaseComplicatedPage {
   }
 
   async getDataFromTable(fields) {
-    this.base.waitingFixedTime(2000)
+    // Wait for table to be visible and loaded
+    await this.page.waitForSelector('table', { state: 'visible' });
+    await this.page.waitForLoadState('networkidle');
+    
     const requiredFields = fields.map(f => f.toLowerCase());
   
     const result = await this.page.evaluate(({ requiredFields }) => {

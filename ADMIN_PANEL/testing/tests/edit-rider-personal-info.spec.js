@@ -12,18 +12,21 @@ import { dashboardConstants, dashboardLocators } from '../src/utils/dashboard-da
 import { driverEditConstants } from '../src/utils/driver-edit-data';
 import { riderDetailsConstants } from '../src/utils/rider-edit-data';
 
+// Setup: Login before each test
+test.beforeEach(async ({ page }) => {
+  const basePage = new BasePage(page);
+  const loginPage = new LoginPage(page);
+  
+  await basePage.visitURL(generalConstants.admin_panel_url);
+  await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
+  await basePage.assertURL(dashboardConstants.dashboard_url);
+  await basePage.shouldBeVisible(dashboardLocators.dashboard_title);
+});
+
 test('edit rider info with valid creds', async ({ page }) => {
-     const basePage = new BasePage(page);
-     const loginPage = new LoginPage(page);
      const dashboardPage = new DashboardPage(page);
-     const driverListPage = new DriverListPage(page);
-     const driverEditPage = new DriverEditPage(page);
      const riderEditPage = new RiderEditPage(page);
 
-     await basePage.visitURL(generalConstants.admin_panel_url)
-     await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
-     await basePage.assertURL(dashboardConstants.dashboard_url);
-     await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
      await dashboardPage.goToRiderSection(dashboardLocators.rider_page);
      await riderEditPage.selectRiderByName(riderDetailsConstants.rider_name);
      await riderEditPage.updateRiderInfo(
@@ -39,17 +42,9 @@ test('edit rider info with valid creds', async ({ page }) => {
 });
 
 test('edit rider info with invalid name', async ({ page }) => {
-     const basePage = new BasePage(page);
-     const loginPage = new LoginPage(page);
      const dashboardPage = new DashboardPage(page);
-     const driverListPage = new DriverListPage(page);
-     const driverEditPage = new DriverEditPage(page);
      const riderEditPage = new RiderEditPage(page);
 
-     await basePage.visitURL(generalConstants.admin_panel_url)
-     await loginPage.login(loginConstants.admin_email, loginConstants.admin_password);
-     await basePage.assertURL(dashboardConstants.dashboard_url);
-     await basePage.shouldBeVisible(dashboardLocators.dashboard_title); 
      await dashboardPage.goToRiderSection(dashboardLocators.rider_page);
      await riderEditPage.selectRiderByName(riderDetailsConstants.rider_name);
      await riderEditPage.updateInvalidRiderName(

@@ -28,6 +28,7 @@ const dashboardLocators = {
     ride_requests_section: '[href="#riderequest"]',
     report_section: '[href="#report"]',
     room_list_page: 'Room List',
+    submit_log_out: 'Log out'
 }
 
 const dashboardConstants = {

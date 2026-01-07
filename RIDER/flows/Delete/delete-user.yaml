@@ -1,0 +1,18 @@
+appId: drift.armenia
+---
+- runScript: ../../selectors/dashboard-selectors.js
+- runScript: ../../selectors/home-selectors.js
+- runScript: ../../selectors/profile-selectors.js
+- runScript: ../../selectors/settings-selectors.js
+
+- launchApp
+
+- tapOn: ${output.homeSelectors.profile_section_title}
+- tapOn: ${output.profileSelectors.settings_page}
+
+- scroll
+
+- tapOn: ${output.settingsSelectors.delete_account}
+- tapOn: ${output.settingsSelectors.delete_account}
+
+- assertVisible: ${output.dashboardSelectors.welcome_title}

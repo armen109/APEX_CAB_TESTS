@@ -4,11 +4,7 @@ appId: drift.armenia
 - runScript: ../../../selectors/home-selectors.js
 - runScript: ../../../selectors/profile-selectors.js
 - runScript: ../../../creds/registration-creds.js
-- runScript: ../../../selectors/registration-selectors.js
-- runScript: ../../../creds/profile-creds.js
-- runScript: ../../../scripts/fetch-otp.js 
 
-- evalScript: ${output.createInbox()}
 
 - launchApp
 
@@ -23,23 +19,12 @@ appId: drift.armenia
 - tapOn:
     point: ${output.profileSelectors.email_edit}
 - tapOn:
-    text: ${output.profileSelectors.email_field}
-    repeat: 3
-    delay: 100 
+    point: ${output.profileSelectors.email_field}
 - eraseText
-- inputText: ${output.emailAddress}
+- inputText: ${output.registrationCreds.already_registered_email}
 - tapOn: ${output.profileSelectors.update_button}
-- evalScript: ${output.waitForOtp(output.inboxId)}
-
-- waitForAnimationToEnd:
-    timeout: 5000
-
+- assertVisible: ${output.profileSelectors.already_used_email_error}
 - tapOn:
-    point: ${output.registrationSelectors.otp_field}
-
-- inputText: ${output.otpCode}
-
+    point: ${output.profileSelectors.email_back}
 - tapOn:
-    text: ${output.registrationSelectors.otp_confirm_button}
-
-- evalScript: ${output.deleteCurrentInbox()}
+    point: ${output.profileSelectors.email_back}

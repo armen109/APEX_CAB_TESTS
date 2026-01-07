@@ -2,7 +2,7 @@ import {expect} from '@playwright/test';
 import { BasePage } from '../../src/pages/BasePage';
 import { BaseComplicatedPage } from './BaseComplicatedPage';
 import { dashboardLocators } from '../utils/dashboard-data';
-import { generalLocators } from '../utils/general-data';
+import { generalLocators, generalConstants } from '../utils/general-data';
 
 export class DashboardPage {
   constructor(page) {
@@ -14,6 +14,9 @@ export class DashboardPage {
   async logOut(){
     await this.base.clickButton(dashboardLocators.profile_photo)
     await this.base.clickContainingButton('span', 'Log Out');
+    // await this.base.waitingFixedTime(5000);
+    await this.base.clickContainingButton('button', dashboardLocators.submit_log_out)
+    await this.base.assertURL(generalConstants.admin_panel_url);
   }
 
   async changeLanguage(language){
@@ -151,12 +154,13 @@ export class Search{
   }
 
   async verifySearching(searched_fields){
-    this.base.shouldBeVisible('.text-left.sorting_1');
+    await this.base.shouldBeVisible('.text-left.sorting_1');
     for(const searched_field of searched_fields){
-      let data = this.complicatedBase.getDataFromTable(searched_field);
+      const data = await this.complicatedBase.getDataFromTable(searched_field);
       console.log(data);
       await this.base.typeData(data);
-      await this.base.waitingFixedTime(2500); 
+      // Wait for table to update after search
+      await this.page.waitForSelector(generalLocators.processing_state, { state: 'hidden' });
       await this.filtration.assertFiltration(data);
     }
   }

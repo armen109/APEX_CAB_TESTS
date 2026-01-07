@@ -15,14 +15,16 @@ export class SupportChatPage {
   }
 
   async selectChatByName(userName){
-    await this.base.typeData(driverListLocators.search_field, userName);
-    await this.base.waitingFixedTime(2500); 
+    await this.base.typeData('[type="search"]', userName);
+    // Wait for search results to appear and chat button to be available
+    await this.page.waitForSelector(supportChatLocators.view_chat, { state: 'visible' });
     await this.base.clickButtonForced(supportChatLocators.view_chat);
   }
 
   async selectChatEditByName(userName){
     await this.base.typeData(driverListLocators.search_field, userName);
-    await this.base.waitingFixedTime(2500); 
+    // Wait for search results to appear and edit chat button to be available
+    await this.page.waitForSelector(supportChatLocators.edit_chat, { state: 'visible' });
     await this.base.clickButtonForced(supportChatLocators.edit_chat);
   }
 

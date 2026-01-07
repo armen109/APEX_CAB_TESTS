@@ -116,11 +116,12 @@ export class ReportPage {
         }
         if (applied) {
             await this.base.clickButton(driverListLocators.apply_button);
-            await this.base.waitingFixedTime(10000)
-            await this.base.shouldBeVisibleFirst('.text-left.sorting_1');
-            if(driver){this.filtration.assertFiltration(driver)}
-            if(rider){this.filtration.assertFiltration(rider)}
-            if(type){this.filtration.assertFiltration(type)}
+            // Wait for table processing to complete
+            await this.page.waitForSelector(generalLocators.processing_state, { state: 'hidden' });
+            await this.page.waitForSelector('.text-left.sorting_1', { state: 'visible' });
+            if(driver){await this.filtration.assertFiltration(driver)}
+            if(rider){await this.filtration.assertFiltration(rider)}
+            if(type){await this.filtration.assertFiltration(type)}
         } else {
             throw new Error(
                 'No valid fields found to apply filters in Report section'
@@ -150,10 +151,11 @@ export class ReportPage {
         }
         if (applied) {
             await this.base.clickButton(driverListLocators.apply_button);
-            await this.base.waitingFixedTime(10000)
-            await this.base.shouldBeVisibleFirst('.text-center.sorting_1');
-            // if(type){this.filtration.assertFiltration(type)}
-            if(payment_method){this.filtration.assertFiltration(payment_method)}
+            // Wait for table processing to complete
+            await this.page.waitForSelector(generalLocators.processing_state, { state: 'hidden' });
+            await this.page.waitForSelector('.text-center.sorting_1', { state: 'visible' });
+            // if(type){await this.filtration.assertFiltration(type)}
+            if(payment_method){await this.filtration.assertFiltration(payment_method)}
         } else {
             throw new Error(
                 'No valid fields found to apply filters in Report section'
@@ -181,10 +183,11 @@ export class ReportPage {
         }
         if (applied) {
             await this.base.clickButton(driverListLocators.apply_button);
-            await this.base.waitingFixedTime(10000)
-            await this.base.shouldBeVisibleFirst('.text-left.sorting_1');
-            if(driver){this.filtration.assertFiltration(driver)}
-            // if(service){this.filtration.assertFiltration(service)}
+            // Wait for table processing to complete
+            await this.page.waitForSelector(generalLocators.processing_state, { state: 'hidden' });
+            await this.page.waitForSelector('.text-left.sorting_1', { state: 'visible' });
+            if(driver){await this.filtration.assertFiltration(driver)}
+            // if(service){await this.filtration.assertFiltration(service)}
         } else {
             throw new Error(
                 'No valid fields found to apply filters in Report section'

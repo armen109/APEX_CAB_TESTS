@@ -23,7 +23,9 @@ appId: drift.armenia
 
 - evalScript: ${output.waitForOtp(output.inboxId)}
 
-# - assertVisible: ${output.registrationSelectors.otp_page_title}
+- waitForAnimationToEnd:
+    timeout: 5000
+
 - tapOn:
     point: ${output.registrationSelectors.otp_field}
 
@@ -31,4 +33,10 @@ appId: drift.armenia
 
 - tapOn:
     text: ${output.registrationSelectors.otp_confirm_button}
+
+- evalScript: ${output.deleteCurrentInbox()}
+
+- runFlow:
+    file: "../Delete/delete-user.yaml"
+
 - assertVisible: ${output.dashboardSelectors.welcome_title}

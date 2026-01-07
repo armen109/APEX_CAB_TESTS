@@ -6,7 +6,7 @@ const generalLocators = {
 }
 
 const generalConstants = {
-    admin_panel_url: "https://admin.apexcab.net",
+    admin_panel_url: process.env.ADMIN_PANEL_URL || "https://admin.apexcab.net",
 }
 
 export {generalLocators, generalConstants}

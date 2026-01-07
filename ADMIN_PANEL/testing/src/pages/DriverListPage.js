@@ -11,7 +11,8 @@ export class DriverListPage {
 
   async selectDriverByName(driverName){
     await this.base.typeData(driverListLocators.search_field, driverName);
-    await this.base.waitingFixedTime(2500); 
+    // Wait for search results to appear and edit button to be available
+    await this.page.waitForSelector(driverListLocators.edit_driver_button, { state: 'visible' });
     await this.base.clickButtonForced(driverListLocators.edit_driver_button);
   }
    

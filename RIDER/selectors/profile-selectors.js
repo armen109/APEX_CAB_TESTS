@@ -1,7 +1,7 @@
 output.profileSelectors={
     profile_page: "Հաշիվ",
-    email_edit: "79%,61%",
-    email_field: "50%,30%",
+    email_edit: "79%,64%",
+    email_field: "Էլ. փոստ",
     update_button: "Թարմացնել",
     already_used_email_error: "Էլ․ հասցեն արդեն օգտագործվում է այլ հաշվի կողմից։",
     already_used_phone_error: "Հեռախոսահամարը արդեն օգտագործվում է այլ հաշվի կողմից։",

@@ -8,10 +8,10 @@ const loginLocators = {
 }
 
 const loginConstants = {
-    admin_email: "it@apexcab.net",
-    admin_password: "k60zGO3n*stW",
-    invalid_email: "invalid@apex.com",
-    invalid_password: "invalid",
+    admin_email: process.env.ADMIN_EMAIL || "it@apexcab.net",
+    admin_password: process.env.ADMIN_PASSWORD || "k60zGO3n*stW",
+    invalid_email: process.env.INVALID_EMAIL || "invalid@apex.com",
+    invalid_password: process.env.INVALID_PASSWORD || "invalid",
     
 }
 

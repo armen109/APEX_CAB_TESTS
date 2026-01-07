@@ -1,0 +1,16 @@
+output.registrationSelectors={
+    sign_up_button: "Գրանցվել",
+    phone_number_field: "50%,22%",
+    email_field: "Էլ. փոստ",
+    terms_of_use: "7%,29%",
+    phone_sign_up_button: "51%,39%",
+    phone_error: "Անվավեր հեռախոսահամար",
+    email_error: "Էլ․ հասցեն անվավեր է",
+    already_registered_phone_error: "Այս հեռախոսահամարը արդեն գրանցված է։",
+    already_registered_email_error: "Այս էլ. փոստը արդեն օգտագործվում է։", 
+    continue_email_button: "Շարունակել էլ. փոստով",
+    email_submit_button: "Գրանցվել.*",
+    otp_field: "34%,31%",
+    otp_confirm_button: "Հաստատել",
+    otp_page_title: "Հաստատման կոդ",
+}
