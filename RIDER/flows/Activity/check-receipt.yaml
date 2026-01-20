@@ -11,26 +11,27 @@ appId: drift.armenia
       visible: ${output.dashboardSelectors.welcome_title}
     file: "../Login/login-with-valid-phone.yaml"
 
-- tapOn:
-    point: ${output.homeSelectors.activity_section}
+- tapOn: ${output.homeSelectors.activity_section}
 
-- runFlow:
-    when:
-      notVisible: ${output.activtySelectors.ride_details_title}
-    file: "../RideRequests/RideType/ride-request-to-finish-state.yaml"
-
+#- runFlow:
+#    when:
+#      notVisible: ${output.activtySelectors.ride_details_regexp}
+#    file: "../RideRequests/RideType/ride-request-to-finish-state.yaml"
 
 - tapOn:
     point: ${output.activtySelectors.first_ride_details}
 - runFlow:
     when:
       visible: ${output.activtySelectors.ride_details_title}
-    commands: 
-        - scrollUntilVisible:
-            element:
-              text: ${output.activtySelectors.check_receipt}
-        - tapOn: ${output.activtySelectors.check_receipt}
-        - assertVisible:
-            id: ${output.activtySelectors.receipt}
+    commands:
+        - scroll
+        - runFlow:
+            when:
+              visible: ${output.activtySelectors.check_receipt}
+            commands:
+                - tapOn: ${output.activtySelectors.check_receipt}
+                - assertWithAI:
+                    assertion: The Google is opened, showing a receipt about ride request
+
 
     

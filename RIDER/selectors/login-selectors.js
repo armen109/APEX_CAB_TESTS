@@ -1,8 +1,8 @@
 output.loginSelectors={
     login_button: "Մուտք",
-    phone_number_field: "50%,22%",
+    phone_number_field: "Հեռախոսահամար",
     login_confirm_button: "Մուտք գործել հեռախոսով",
-    otp_field: "34%,31%",
+    otp_field: "34%,30%",
     otp_confirm_button: "Հաստատել",
     assert_destination_field: "Մուտքագրեք նշանակետը",
     phone_error: "Անվավեր հեռախոսահամար",
@@ -12,6 +12,9 @@ output.loginSelectors={
     otp_error: "Incorrect code. Please try again.",
     otp_page_title: "Հաստատման կոդ",
     back_arrow_dashboard: "com.google.android.inputmethod.latin:id/0_resource_name_obfuscated",
-    continue_email_button: "50%,53%",
     email_login_button: "50%,30%",
+    continue_with_email: "Շարունակել էլ. փոստով",
+    email_field: "Էլ. փոստ",
+    login_with_email_button: "Մուտք գործել էլ. փոստով",
+    otp_page_assertion: "Հաստատման կոդ",
 }

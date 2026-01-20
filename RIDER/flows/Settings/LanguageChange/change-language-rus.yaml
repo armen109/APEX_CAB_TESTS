@@ -18,12 +18,11 @@ appId: drift.armenia
     point: ${output.settingsSelectors.language_page}
 - tapOn: ${output.settingsSelectors.russian_lang}
 - tapOn:
-    point:  ${output.settingsSelectors.language_update}
-- assertVisible: ${output.settingsSelectors.russian_assertion}
+    point: ${output.profileSelectors.email_back}
+- assertWithAI:
+    assertion: The app's language is set to russian.
 - tapOn:
     point: ${output.settingsSelectors.language_page}
 - tapOn: ${output.settingsSelectors.armenian_lang}
-- tapOn:
-    point:  ${output.settingsSelectors.language_update}
 - tapOn:
     point: ${output.profileSelectors.email_back}

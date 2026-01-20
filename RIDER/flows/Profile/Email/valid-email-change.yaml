@@ -12,10 +12,10 @@ appId: drift.armenia
 
 - launchApp
 
-- runFlow:
-    when:
-      visible: ${output.dashboardSelectors.welcome_title}
-    file: "../../Login/login-with-valid-phone.yaml"
+#- runFlow:
+#    when:
+#      visible: ${output.dashboardSelectors.welcome_title}
+#    file: "../../Login/login-with-valid-phone.yaml"
 
 - tapOn:
     point: ${output.homeSelectors.profile_section}

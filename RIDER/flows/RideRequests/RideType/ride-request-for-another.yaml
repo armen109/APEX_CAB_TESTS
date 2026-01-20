@@ -20,16 +20,20 @@ appId: drift.armenia
 - waitForAnimationToEnd:
     timeout: 20000
 
-- tapOn:
-    point: ${output.rideRequestsSelectors.erase_icon_pickup}
-- tapOn: ${output.rideRequestsSelectors.pick_up_field}
-- inputText: ${output.rideRequestsCreds.testing_pick_up}
 - runFlow:
     when:
-      visible: ${output.rideRequestsSelectors.pick_up_select_option}
+      visible: ${output.rideRequestsSelectors.we_cant_find_location}
     commands:
-      - tapOn:  ${output.rideRequestsSelectors.pick_up_select_option}
-      - assertVisible: ${output.rideRequestsSelectors.pick_up_assertion}
+      - tapOn:
+          point: ${output.rideRequestsSelectors.erase_icon_pickup}
+      - tapOn: ${output.rideRequestsSelectors.pick_up_field}
+      - inputText: ${output.rideRequestsCreds.testing_pick_up2}
+      - runFlow:
+          when:
+            visible: ${output.rideRequestsSelectors.pick_up_select_option2}
+          commands:
+            - tapOn:  ${output.rideRequestsSelectors.pick_up_select_option2}
+            - assertVisible: ${output.rideRequestsSelectors.pick_up_asserti
 
 - tapOn: ${output.rideRequestsSelectors.destination_field}
 - inputText: ${output.rideRequestsCreds.testing_destination}
@@ -79,6 +83,7 @@ appId: drift.armenia
                 start: 50%, 70%
                 end: 50%, 50%
       - tapOn: ${output.rideRequestsSelectors.cancel_button}
+      - tapOn: ${output.rideRequestsSelectors.confirm_button}
       - tapOn: ${output.rideRequestsSelectors.dialog_cancel_button}
       - assertVisible: ${output.rideRequestsSelectors.cancelled_ride_message}
 

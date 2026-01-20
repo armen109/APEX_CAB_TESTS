@@ -19,12 +19,7 @@ appId: drift.armenia
 - tapOn: ${output.profileSelectors.profile_page}
 - tapOn:
     point: ${output.profileSelectors.name_edit}
-- tapOn:
-    point: ${output.profileSelectors.name_field}
+- tapOn: ${output.profileSelectors.name_field}
 - eraseText
 - inputText: ${output.profileCreds.invalid_name}
 - assertVisible: ${output.profileSelectors.name_error}
-- tapOn:
-    point: ${output.profileSelectors.email_back}
-- tapOn:
-    point: ${output.profileSelectors.email_back}

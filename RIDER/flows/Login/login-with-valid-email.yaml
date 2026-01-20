@@ -2,20 +2,25 @@ appId: drift.armenia
 ---
 - runScript: ../../selectors/login-selectors.js
 - runScript: ../../creds/login-creds.js
+- runScript: ../../selectors/dashboard-selectors.js
 
 - clearState: drift.armenia  
 
 - launchApp
+- runFlow:
+    when:
+        visible: ${output.dashboardSelectors.then}
+    commands:
+        - tapOn: ${output.dashboardSelectors.then}
+- assertVisible: ${output.dashboardSelectors.welcome_title}
 - tapOn: ${output.loginSelectors.login_button}
-- tapOn:
-    point: ${output.loginSelectors.continue_email_button}
-- tapOn:
-    point: ${output.loginSelectors.phone_number_field}
+- tapOn: ${output.loginSelectors.continue_with_email}
+- tapOn: ${output.loginSelectors.email_field}
 - inputText: ${output.loginCreds.valid_email}
-- tapOn:
-    point: ${output.loginSelectors.email_login_button}
+- tapOn: ${output.loginCreds.login_with_email_button}
+- assertVisible: ${output.loginSelectors.otp_page_assertion}
 - tapOn:
     point: ${output.loginSelectors.otp_field}
-- inputText: ${output.loginCreds.valid_phone_otp}
+- inputText: ${output.loginCreds.valid_otp}
 - tapOn: ${output.loginSelectors.otp_confirm_button}
 - assertVisible: ${output.loginSelectors.assert_destination_field}

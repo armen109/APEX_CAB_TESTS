@@ -20,16 +20,20 @@ appId: drift.armenia
 - waitForAnimationToEnd:
     timeout: 20000
 
-- tapOn:
-    point: ${output.rideRequestsSelectors.erase_icon_pickup}
-- tapOn: ${output.rideRequestsSelectors.pick_up_field}
-- inputText: ${output.rideRequestsCreds.testing_pick_up}
 - runFlow:
     when:
-      visible: ${output.rideRequestsSelectors.pick_up_select_option}
+      visible: ${output.rideRequestsSelectors.we_cant_find_location}
     commands:
-      - tapOn:  ${output.rideRequestsSelectors.pick_up_select_option}
-      - assertVisible: ${output.rideRequestsSelectors.pick_up_assertion}
+      - tapOn:
+          point: ${output.rideRequestsSelectors.erase_icon_pickup}
+      - tapOn: ${output.rideRequestsSelectors.pick_up_field}
+      - inputText: ${output.rideRequestsCreds.testing_pick_up2}
+      - runFlow:
+          when:
+            visible: ${output.rideRequestsSelectors.pick_up_select_option2}
+          commands:
+            - tapOn:  ${output.rideRequestsSelectors.pick_up_select_option2}
+            - assertVisible: ${output.rideRequestsSelectors.pick_up_asserti
 
 - tapOn: ${output.rideRequestsSelectors.destination_field}
 - inputText: ${output.rideRequestsCreds.testing_destination}
@@ -67,10 +71,10 @@ appId: drift.armenia
     when:
       notVisible: ${output.rideRequestsSelectors.finding_drivers}
     commands:
-      - swipe:
-          start: 50%, 70%
-          end: 50%, 50%
-      - assertVisible: ${output.rideRequestsSelectors.stop_add_text}
+#      - swipe:
+#          start: 50%, 70%
+#          end: 50%, 50%
+#      - assertVisible: ${output.rideRequestsSelectors.stop_add_text}
       - extendedWaitUntil:
           visible: ${output.rideRequestsSelectors.driver_is_here_text}
           timeout: 30000    

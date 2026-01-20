@@ -7,7 +7,7 @@ output.rideRequestsSelectors={
     pick_up_assertion: "Ijevan, Tavush Region, Armenia",
     destination_select_option: "Ijevan Bus Terminal Tavush Region, Ijevan, Yerevanyan Street",
     destination_assertion: "Ijevan Bus Terminal, Tavush Region, Ijevan, Yerevanyan Street",
-    continue_button: "Պատվիրել",
+    continue_button: "Շարունակել",
     whos_ordering_ride_dialog: "Ո՞վ է ուղևորությունն անում։",
     me_option: "36%,89%",
     order_ride_button: "Պատվիրել ուղևորություն",
@@ -36,9 +36,11 @@ output.rideRequestsSelectors={
     name_field: "Անուն",
     phone_number_field: "Ավելացնել կոնտակտի հեռախոսահամար",
     ok_button: "Լավ",
-    truck_tariff: ".*Truck L.*",
+    truck_tariff: ".*Truck S.*",
     evacuator_tariff: ".*Evacuator.*",
     add_loader_icon: "87%,22%",
+    we_cant_find_location: "Ներեցեք, մենք չենք կարող գտնել ձեր գտնվելու վայրը",
+    pick_up_assertion2: "Getahovit village, Tavush Region, Armenia",
 }
 
 

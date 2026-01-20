@@ -4,5 +4,6 @@ output.activtySelectors={
     check_receipt: "Տեսնել հաշիվը",
     receipt: "com.android.chrome:id/compositor_view_holder",
     delete_details: "Ջնջել",
-    details_deleted_message: "Ուղևորության տվյալները ջնջվել են"
+    details_deleted_message: "Ուղևորության տվյալները ջնջվել են",
+    ride_details_regexp: ".*\\n:\\n.*",
 }

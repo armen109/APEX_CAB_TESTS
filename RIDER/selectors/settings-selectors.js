@@ -7,4 +7,5 @@ output.settingsSelectors={
     english_assertion: "Settings",
     russian_assertion: "Настройки",
     delete_account: "Ջնջել իմ հաշիվը",
+    back_arrow: "7%,7%",
 }

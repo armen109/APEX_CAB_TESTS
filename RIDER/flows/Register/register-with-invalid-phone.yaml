@@ -2,16 +2,24 @@ appId: drift.armenia
 ---
 - runScript: ../../selectors/registration-selectors.js
 - runScript: ../../creds/registration-creds.js
+- runScript: ../../selectors/dashboard-selectors.js
 
-- clearState: drift.armenia  
+- clearState: drift.armenia
 
 - launchApp
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.then}
+    commands:
+      - tapOn: ${output.dashboardSelectors.then}
+
+- assertVisible: ${output.dashboardSelectors.welcome_title}
 - tapOn: ${output.registrationSelectors.sign_up_button}
-- tapOn:
-    point: ${output.registrationSelectors.phone_number_field}
+- tapOn: ${output.registrationSelectors.phone_number_field}
 - inputText: ${output.registrationCreds.invalid_phone_number}
 - tapOn:
-    point: ${output.registrationSelectors.terms_of_use}
-- tapOn:
-    point: ${output.registrationSelectors.phone_sign_up_button}
+    point: ${output.registrationSelectors.phone_number_terms_for_use}
+- tapOn: ${output.registrationSelectors.phone_sign_up_button}
 - assertVisible: ${output.registrationSelectors.phone_error}
+- assertWithAI:
+    assertion: The "Գրանցվել" button is disabled.a
