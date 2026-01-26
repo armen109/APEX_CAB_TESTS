@@ -1,30 +1,34 @@
-appId: drift.armenia
+appId: drift.armenia.driver
 ---
-- runScript: ../../../selectors/dashboard-selectors.js
-- runScript: ../../../selectors/home-selectors.js
-- runScript: ../../../selectors/profile-selectors.js
-- runScript: ../../../creds/registration-creds.js
-- runScript: ../../../creds/profile-creds.js
+- runScript: ../../../../selectors/home-selectors.js
+- runScript: ../../../../selectors/profile-selectors.js
+- runScript: ../../../../selectors/driver-info-selectors.js
+- runScript: ../../../../creds/driver-info-creds.js
+- runScript: ../../../../creds/register-creds.js
+
+
 
 
 - launchApp
 
 - runFlow:
     when:
-      visible: ${output.dashboardSelectors.welcome_title}
-    file: "../../Login/login-with-valid-phone.yaml"
+      visible: ${output.homeSelectors.assertion_not_logged_in}
+    file: "../../../Login/login-with-valid-phone.yaml"
 
-- tapOn:
-    point: ${output.homeSelectors.profile_section}
-- tapOn: ${output.profileSelectors.profile_page}
-- tapOn:
-    point: ${output.profileSelectors.phone_number_edit}
-- tapOn:
-    point: ${output.profileSelectors.phone_number_field}
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands:
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
+- tapOn: ${output.profileSelectors.profilePage}
+- tapOn: ${output.driverInfoSelectors.driver_info_section}
+- tapOn: ${output.driverInfoSelectors.phone_number_page}
+- tapOn: ${output.driverInfoSelectors.phone_field}
 - eraseText
-- inputText: ${output.profileCreds.invalid_phone}
-- assertVisible: ${output.profileSelectors.phone_error}
-- tapOn:
-    point: ${output.profileSelectors.phone_back}
-- tapOn:
-    point: ${output.profileSelectors.phone_back}
+- inputText: ${output.registerCreds.invalid_phone_number}
+- assertVisible: ${output.driverInfoSelectors.phone_error}
+- assertWithAI:
+    assertion: The "Թարմացնել" button is disabled.a

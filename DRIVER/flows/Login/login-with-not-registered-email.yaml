@@ -17,5 +17,5 @@ appId: drift.armenia.driver
         - tapOn: ${output.loginSelectors.continue_email_button}
         - tapOn: ${output.loginSelectors.email_field}
         - inputText: ${output.loginCreds.not_registered_email}
-        - tapOn: ${output.loginSelectors.login_confirm_button}
+        - tapOn: ${output.loginSelectors.login_confirm_button_email}
         - assertVisible: ${output.loginSelectors.not_registered_email_error}

@@ -18,3 +18,5 @@ appId: drift.armenia.driver
         - tapOn: ${output.loginSelectors.email_field}
         - inputText: ${output.loginCreds.invalid_email}
         - assertVisible: ${output.loginSelectors.email_error}
+        - assertWithAI:
+            assertion: The "Մուտք գործել էլ. փոստով" button is diabeld

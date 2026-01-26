@@ -31,19 +31,15 @@ appId: drift.armenia.driver
           commands:
             - tapOn:
                 point: ${output.serviceSettingsSelectors.first_tariff_option}
-            - tapOn: ${output.serviceSettingsSelectors.update_button}
             - assertVisible: ${output.serviceSettingsSelectors.preferences_changed_snackbar}
             - tapOn:
                 point: ${output.serviceSettingsSelectors.first_tariff_option}
-            - tapOn: ${output.serviceSettingsSelectors.update_button}
       - runFlow:
           when:
             notVisible: ${output.serviceSettingsSelectors.truck_pref}
           commands:
             - tapOn:
                 point: ${output.serviceSettingsSelectors.first_tariff_option}
-            - tapOn: ${output.serviceSettingsSelectors.update_button}
             - assertVisible: ${output.serviceSettingsSelectors.preferences_changed_snackbar}
             - tapOn:
                 point: ${output.serviceSettingsSelectors.first_tariff_option}
-            - tapOn: ${output.serviceSettingsSelectors.update_button}

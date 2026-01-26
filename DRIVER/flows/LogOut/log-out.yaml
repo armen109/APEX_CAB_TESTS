@@ -11,8 +11,13 @@ appId: drift.armenia.driver
       visible: ${output.dashboardSelectors.welcome_title}
     file: "../Login/login-with-valid-phone.yaml"
 
-- tapOn:
-    point: ${output.homeSelectors.profile_section}
+- runFlow:
+    when:
+      visible: ${output.homeSelectors.ok_button}
+    commands:
+      - tapOn: ${output.homeSelectors.ok_button}
+
+- tapOn: ${output.homeSelectors.profile_section}
 - tapOn: ${output.logOutSelectors.log_out_button}
 - tapOn: ${output.logOutSelectors.log_out_button}
 - assertVisible: ${output.dashboardSelectors.welcome_title}

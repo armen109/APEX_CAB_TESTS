@@ -1,9 +1,9 @@
 appId: drift.armenia
 ---
-- runScript: ../../../selectors/dashboard-selectors.js
-- runScript: ../../../selectors/home-selectors.js
-- runScript: ../../../selectors/profile-selectors.js
-- runScript: ../../../creds/registration-creds.js
+- runScript: ../../../../selectors/dashboard-selectors.js
+- runScript: ../../../../selectors/home-selectors.js
+- runScript: ../../../../selectors/profile-selectors.js
+- runScript: ../../../../creds/registration-creds.js
 
 
 - launchApp
@@ -11,7 +11,7 @@ appId: drift.armenia
 - runFlow:
     when:
       visible: ${output.dashboardSelectors.welcome_title}
-    file: "../../Login/login-with-valid-phone.yaml"
+    file: "../../../Login/login-with-valid-phone.yaml"
 
 - tapOn:
     point: ${output.homeSelectors.profile_section}

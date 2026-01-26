@@ -11,5 +11,5 @@ output.loginSelectors={
     not_registered_phone_error: "Հեռախոսահամարը գրանցված չէ",
     not_registered_email_error: "Էլ. հասցեն գրանցված չէ",
     otp_page_title: "Հաստատման կոդ",
-    continue_email_button: "Շարունակել էլ․ փոստով",
+    continue_email_button: "Շարունակել էլ. փոստով",
 }

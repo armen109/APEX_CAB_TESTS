@@ -1,4 +1,4 @@
-appId: drift.armenia
+appId: drift.armenia.driver
 ---
 - runScript: ../../selectors/dashboard-selectors.js
 - runScript: ../../selectors/home-selectors.js
@@ -8,9 +8,12 @@ appId: drift.armenia
 
 - launchApp
 
+- waitForAnimationToEnd:
+    timeout: 20000
+
 - runFlow:
     when:
-      visible: ${output.homeSelectors.assertion_not_logged_in}
+      visible: ${output.dashboardSelectors.welcome_title}
     file: "../Login/login-with-valid-phone.yaml"
 
 - runFlow:

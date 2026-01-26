@@ -1,3 +1,3 @@
 output.logOutSelectors={
-    log_out_button: "Ելք",
+    log_out_button: "Դուրս գալ",
 }
