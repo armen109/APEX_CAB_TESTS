@@ -1,0 +1,28 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/settings-selectors.js
+- runScript: ../../../selectors/my-addresses-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+      when:
+          visible: ${output.dashboardSelectors.then}
+      commands:
+          - tapOn: ${output.dashboardSelectors.then}
+
+- tapOn: ${output.homeSelectors.profile_section_title}
+- tapOn: ${output.profileSelectors.settings_page}
+- tapOn: ${output.myAddressesSelectors.my_addresses_page}
+- tapOn:
+    point: ${output.myAddressesSelectors.home_delete_icon}
+- tapOn: ${output.myAddressesSelectors.delete_button}
+- assertVisible: ${output.myAddressesSelectors.address_deleted_message}

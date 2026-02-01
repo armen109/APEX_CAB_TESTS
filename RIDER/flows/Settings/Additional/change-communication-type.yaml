@@ -1,0 +1,29 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/settings-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- tapOn: ${output.homeSelectors.profile_section_title}
+- tapOn: ${output.profileSelectors.settings_page}
+- tapOn: ${output.settingsSelectors.communication_page}
+- tapOn: ${output.settingsSelectors.message_option}
+- assertVisible: ${output.settingsSelectors.communication_updated_message}
+- assertWithAI:
+    assertion: The communication type is set to "Հաղորդագրություն".
+- tapOn: ${output.settingsSelectors.call_option}
+- assertVisible: ${output.settingsSelectors.communication_updated_message}
+- assertWithAI:
+    assertion: The communication type is set to "Զանգ".
+- tapOn: ${output.settingsSelectors.call_or_message_option}
+- assertVisible: ${output.settingsSelectors.communication_updated_message}
+- assertWithAI:
+    assertion: The communication type is set to "Զանգ կամ հաղորդագրություն".

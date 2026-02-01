@@ -1,0 +1,28 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/settings-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- tapOn: ${output.homeSelectors.profile_section_title}
+- tapOn: ${output.profileSelectors.settings_page}
+- tapOn: ${output.settingsSelectors.theme_page}
+- runFlow:
+    when:
+      visible: ${output.settingsSelectors.dark_mode}
+    commands:
+    - assertWithAI:
+        assertion: The app's theme is set to dark.
+    - tapOn:
+        point: ${output.settingsSelectors.theme_switch}
+    - assertVisible: ${output.settingsSelectors.light_mode}
+    - assertWithAI:
+        assertion: The app's theme is set to light.

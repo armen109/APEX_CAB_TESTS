@@ -1,0 +1,41 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/settings-selectors.js
+- runScript: ../../../selectors/my-addresses-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- runFlow:
+      when:
+          visible: ${output.dashboardSelectors.then}
+      commands:
+          - tapOn: ${output.dashboardSelectors.then}
+
+- tapOn: ${output.homeSelectors.profile_section_title}
+- tapOn: ${output.profileSelectors.settings_page}
+- tapOn: ${output.myAddressesSelectors.my_addresses_page}
+- tapOn:
+    point: ${output.myAddressesSelectors.home_edit_button}
+- tapOn: ${output.myAddressesSelectors.my_location_button}
+
+- runFlow:
+    when:
+      visible: ${output.myAddressesSelectors.we_cant_find_location}
+    commands:
+        - tapOn: ${output.myAddressesSelectors.my_location_button}
+
+
+- waitForAnimationToEnd:
+    timeout: 2000
+- assertWithAI:
+    assertion: The field includes some location.
+- tapOn: ${output.myAddressesSelectors.save_button}
+- assertVisible: ${output.myAddressesSelectors.home_added_message}
