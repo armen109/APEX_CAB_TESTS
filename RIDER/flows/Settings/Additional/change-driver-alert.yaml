@@ -1,0 +1,27 @@
+appId: drift.armenia
+---
+- runScript: ../../../selectors/dashboard-selectors.js
+- runScript: ../../../selectors/home-selectors.js
+- runScript: ../../../selectors/profile-selectors.js
+- runScript: ../../../selectors/settings-selectors.js
+
+- launchApp
+
+- runFlow:
+    when:
+      visible: ${output.dashboardSelectors.welcome_title}
+    file: "../../Login/login-with-valid-phone.yaml"
+
+- tapOn: ${output.homeSelectors.profile_section_title}
+- tapOn: ${output.profileSelectors.settings_page}
+- tapOn: ${output.settingsSelectors.driver_alert_page}
+- assertWithAI:
+    assertion: the switch is turned on.
+- tapOn: ${output.settingsSelectors.driver_alert_option}
+- assertVisible: ${output.settingsSelectors.communication_updated_message}
+- assertWithAI:
+    assertion: the switch is turned off.
+- tapOn: ${output.settingsSelectors.driver_alert_option}
+- assertVisible: ${output.settingsSelectors.communication_updated_message}
+- assertWithAI:
+    assertion: the switch is turned on.

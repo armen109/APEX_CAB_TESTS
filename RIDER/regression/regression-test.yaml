@@ -1,0 +1,5 @@
+appId: drift.armenia
+---
+
+- runFlow: ../flows/Login/login-with-invalid-email.yaml
+- runFlow:

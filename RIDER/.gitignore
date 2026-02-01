@@ -1,0 +1,27 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Reports
+reports/
+*.log
+
+# Stop flags
+.stop_regression
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Test artifacts
+*.txt
+!README.txt
+
